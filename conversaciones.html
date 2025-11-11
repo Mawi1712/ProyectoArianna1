@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Secret Talk — Conversaciones</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    :root {
+      --fondo: #0a0a0a;
+      --panel: rgba(30, 0, 0, 0.9);
+      --texto: #fff;
+      --rojo: #e50914;
+      --rojo-suave: #ff4c4c;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, var(--fondo), #1a0000);
+      color: var(--texto);
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--panel);
+      border-bottom: 2px solid var(--rojo);
+      padding: 15px 40px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo {
+      background: var(--rojo);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+
+    .title {
+      color: var(--rojo-suave);
+      font-weight: bold;
+      font-size: 1.3rem;
+    }
+
+    .btn {
+      background: var(--rojo);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .btn:hover {
+      background: var(--rojo-suave);
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: var(--rojo-suave);
+      margin-bottom: 30px;
+    }
+
+    .chat-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .chat-card {
+      background: var(--panel);
+      border: 1px solid var(--rojo);
+      border-radius: 12px;
+      padding: 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+    }
+
+    .chat-card:hover {
+      background: rgba(60, 0, 0, 0.9);
+      transform: translateY(-3px);
+    }
+
+    .chat-subject {
+      font-weight: 600;
+      color: var(--rojo-suave);
+      font-size: 1.1rem;
+    }
+
+    .chat-alias {
+      font-size: 0.9rem;
+      color: #aaa;
+    }
+
+    .chat-date {
+      font-size: 0.85rem;
+      color: #777;
+      margin-top: 8px;
+    }
+
+    /* MODAL CHAT */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+    }
+
+    .modal-content {
+      background: var(--panel);
+      border-radius: 16px;
+      width: 90%;
+      max-width: 600px;
+      padding: 30px;
+      box-shadow: 0 0 25px var(--rojo-suave);
+      position: relative;
+      animation: fadeIn 0.4s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0; transform: scale(0.95);}
+      to {opacity: 1; transform: scale(1);}
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--rojo);
+      padding-bottom: 10px;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      color: var(--rojo-suave);
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .chat-message {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid #700;
+      border-radius: 10px;
+      padding: 15px;
+      margin-top: 10px;
+      line-height: 1.5;
+    }
+
+    .file-preview {
+      margin-top: 15px;
+      text-align: center;
+    }
+
+    .file-preview img, .file-preview video {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #bbb;
+      border-top: 1px solid var(--rojo);
+      margin-top: 40px;
+      background: rgba(0,0,0,0.5);
+    }
+
+    .footer-socials a {
+      color: var(--rojo-suave);
+      margin: 0 10px;
+      font-size: 1.5rem;
+      transition: 0.3s;
+    }
+
+    .footer-socials a:hover {
+      color: var(--rojo);
+      transform: scale(1.2);
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="logo">ST</div>
+      <div>
+        <div class="title">Secret Talk</div>
+        <small>Conversaciones guardadas</small>
+      </div>
+    </div>
+    <a href="principal.html" class="btn"><i class="bi bi-house-door"></i> Inicio</a>
+  </header>
+
+  <div class="container">
+    <h2>Mis Conversaciones</h2>
+    <div id="chatList" class="chat-list"></div>
+  </div>
+
+  <!-- MODAL DE CHAT -->
+  <div id="chatModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="modalSubject">Asunto</h3>
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div>© 2025 Secret Talk — Todos los derechos reservados.</div>
+    <div class="footer-socials">
+      <a href="#"><i class="bi bi-facebook"></i></a>
+      <a href="#"><i class="bi bi-whatsapp"></i></a>
+      <a href="#"><i class="bi bi-instagram"></i></a>
+      <a href="#"><i class="bi bi-twitter-x"></i></a>
+      <a href="#"><i class="bi bi-envelope"></i></a>
+    </div>
+  </footer>
+
+  <script>
+    const chatList = document.getElementById('chatList');
+    const chatModal = document.getElementById('chatModal');
+    const modalSubject = document.getElementById('modalSubject');
+    const modalBody = document.getElementById('modalBody');
+
+    function loadMessages() {
+      const messages = JSON.parse(localStorage.getItem("mensajes_secret_talk")) || [];
+      chatList.innerHTML = "";
+
+      if (messages.length === 0) {
+        chatList.innerHTML = "<p style='text-align:center;color:#aaa;'>No hay conversaciones guardadas aún.</p>";
+        return;
+      }
+
+      messages.reverse().forEach(msg => {
+        const card = document.createElement('div');
+        card.classList.add('chat-card');
+        card.innerHTML = `
+          <div class="chat-subject">${msg.subject}</div>
+          <div class="chat-alias">De: ${msg.alias}</div>
+          <div class="chat-date">${msg.date}</div>
+        `;
+        card.onclick = () => openModal(msg);
+        chatList.appendChild(card);
+      });
+    }
+
+    function openModal(msg) {
+      modalSubject.textContent = msg.subject;
+      modalBody.innerHTML = `
+        <p><strong>De:</strong> ${msg.alias}</p>
+        <p><strong>Para:</strong> ${msg.email}</p>
+        <div class="chat-message">${msg.message}</div>
+        ${msg.file ? getFilePreview(msg.file) : ""}
+        <p style="margin-top:15px;font-size:0.9rem;color:#888;">${msg.date}</p>
+      `;
+      chatModal.style.display = "flex";
+    }
+
+    function closeModal() {
+      chatModal.style.display = "none";
+    }
+
+    function getFilePreview(file) {
+      if (file.startsWith("data:image")) {
+        return `<div class="file-preview"><img src="${file}" alt="Archivo adjunto"></div>`;
+      } else if (file.startsWith("data:video")) {
+        return `<div class="file-preview"><video controls src="${file}"></video></div>`;
+      } else {
+        return `<div class="file-preview"><a href="${file}" download class="btn">Descargar archivo</a></div>`;
+      }
+    }
+
+    window.onclick = function(e) {
+      if (e.target === chatModal) closeModal();
+    };
+
+    loadMessages();
+  </script>
+</body>
+</html>

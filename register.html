@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Secret Talk - Registro</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #1a0000, #000);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Fondo animado */
+    .glow {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, transparent 70%);
+      animation: float 6s infinite ease-in-out alternate;
+      z-index: -1;
+    }
+    .glow:nth-child(1) { top: 10%; left: 8%; animation-delay: 0s; }
+    .glow:nth-child(2) { bottom: 15%; right: 12%; animation-delay: 2s; }
+
+    @keyframes float {
+      from { transform: scale(1) translateY(0); opacity: 0.4; }
+      to { transform: scale(1.3) translateY(-20px); opacity: 1; }
+    }
+
+    /* ENCABEZADO */
+    header {
+      background: rgba(20, 0, 0, 0.9);
+      border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    header h2 {
+      color: #ff4d4d;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header-actions button {
+      background: rgba(60, 0, 0, 0.8);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      color: #fff;
+      border-radius: 8px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: 0.3s;
+      font-size: 0.9rem;
+    }
+
+    .header-actions button:hover {
+      background: #ff0000;
+      color: #fff;
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+    }
+
+    /* FORMULARIO */
+    .register-container {
+      background: rgba(20, 0, 0, 0.8);
+      border: 1px solid rgba(255, 0, 0, 0.3);
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
+      border-radius: 25px;
+      padding: 40px;
+      width: 90%;
+      max-width: 480px;
+      text-align: center;
+      margin: 50px auto;
+      backdrop-filter: blur(8px);
+      animation: fadeIn 1.5s ease;
+    }
+
+    h1 {
+      margin-bottom: 25px;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+      font-weight: 600;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      align-items: center;
+    }
+
+    input, select {
+      width: 90%;
+      padding: 12px;
+      border: none;
+      border-bottom: 2px solid #a00000;
+      background: transparent;
+      color: white;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #ff0000;
+      box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+    }
+
+    button.main-btn {
+      background: linear-gradient(135deg, #b00000, #500000);
+      border: none;
+      border-radius: 30px;
+      padding: 12px 40px;
+      margin-top: 25px;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      transition: 0.3s;
+    }
+
+    button.main-btn:hover {
+      background: linear-gradient(135deg, #ff0000, #700000);
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+      transform: translateY(-3px);
+    }
+
+    p { margin-top: 25px; color: #ccc; font-size: 0.9rem; }
+
+    a { color: #ff4d4d; text-decoration: none; transition: 0.3s; }
+    a:hover { text-decoration: underline; color: #ff6666; }
+
+    /* ALERTA */
+    .alert-box {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: rgba(30, 0, 0, 0.95);
+      border: 1px solid rgba(255, 0, 0, 0.4);
+      box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+      color: white;
+      padding: 30px 40px;
+      border-radius: 20px;
+      text-align: center;
+      z-index: 10;
+      width: 90%;
+      max-width: 350px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+    .alert-box.active { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    .alert-box h3 { margin-bottom: 15px; font-size: 1.2rem; color: #ff5555; }
+    .alert-box p { font-size: 0.95rem; color: #ddd; }
+    .alert-box button {
+      margin-top: 20px;
+      background: linear-gradient(135deg, #a00000, #500000);
+      padding: 10px 25px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    /* MODAL CONTACTO */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+    }
+    .modal-content {
+      background: rgba(20, 0, 0, 0.95);
+      border: 1px solid rgba(255,0,0,0.4);
+      padding: 25px;
+      border-radius: 15px;
+      text-align: center;
+      width: 90%;
+      max-width: 400px;
+      color: #fff;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+    }
+    .modal-content h3 { color: #ff4d4d; margin-bottom: 10px; }
+    .modal-content p { font-size: 0.9rem; color: #ccc; }
+    .modal-content button {
+      margin-top: 15px;
+      padding: 8px 18px;
+      border: none;
+      border-radius: 10px;
+      background: #a00000;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    /* FOOTER */
+    footer {
+      background: rgba(20, 0, 0, 0.9);
+      border-top: 1px solid rgba(255, 0, 0, 0.3);
+      text-align: center;
+      padding: 20px 0;
+      color: #aaa;
+      letter-spacing: 1px;
+    }
+    footer .social-icons {
+      margin-bottom: 10px;
+    }
+    footer .social-icons i {
+      margin: 0 10px;
+      font-size: 1.3rem;
+      color: #ff4d4d;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    footer .social-icons i:hover {
+      color: #fff;
+      transform: scale(1.2);
+    }
+    footer a {
+      color: #ff4d4d;
+      margin: 0 8px;
+      font-size: 0.9rem;
+    }
+    footer a:hover { color: #fff; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="glow"></div>
+
+  <header>
+    <h2>🌹 SECRET TALK 🌹</h2>
+    <div class="header-actions">
+      <button onclick="toggleLanguage()">🌐 Traducir</button>
+      <button onclick="toggleFullScreen()">⛶ Pantalla completa</button>
+      <button onclick="openContact()">📩 Contacto</button>
+    </div>
+  </header>
+
+  <div class="register-container">
+    <h1>CREA TU CUENTA</h1>
+    <form id="registerForm">
+      <input type="email" id="email" placeholder="Correo electrónico">
+      <input type="text" id="name" placeholder="Nombre completo">
+      <select id="gender">
+        <option value="">Selecciona tu sexo</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Otro">Otro</option>
+      </select>
+      <input type="date" id="birthday">
+      <input type="password" id="password" placeholder="Contraseña">
+      <input type="password" id="confirmPassword" placeholder="Confirmar contraseña">
+      <button type="button" class="main-btn" onclick="register()">Registrarse</button>
+    </form>
+    <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></p>
+  </div>
+
+  <div id="alertBox" class="alert-box">
+    <h3 id="alertTitle"></h3>
+    <p id="alertMessage"></p>
+    <button onclick="closeAlert()">Aceptar</button>
+  </div>
+
+  <div id="contactModal" class="modal">
+    <div class="modal-content">
+      <h3>Contacto</h3>
+      <p>📧 Email: soporte@secrettalk.com</p>
+      <p>📞 WhatsApp: +51 999 888 777</p>
+      <p>📍 Lima, Perú</p>
+      <button onclick="closeContact()">Cerrar</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="social-icons">
+      <i class="bi bi-facebook"></i>
+      <i class="bi bi-instagram"></i>
+      <i class="bi bi-tiktok"></i>
+      <i class="bi bi-whatsapp"></i>
+    </div>
+    <p>
+      <a href="#">Inicio</a> |
+      <a href="#">Ayuda</a> |
+      <a href="#">Política de Privacidad</a>
+    </p>
+    <p>© 2025 Secret Talk | Crea, Conecta y Expresa 🌙</p>
+  </footer>
+
+  <script>
+    // Alerta personalizada
+    function showAlert(title, message) {
+      const alertBox = document.getElementById("alertBox");
+      document.getElementById("alertTitle").innerText = title;
+      document.getElementById("alertMessage").innerText = message;
+      alertBox.classList.add("active");
+    }
+    function closeAlert() {
+      document.getElementById("alertBox").classList.remove("active");
+    }
+
+    // Registro
+    function register() {
+      const email = emailInput.value.trim();
+      const name = nameInput.value.trim();
+      const gender = genderSelect.value;
+      const birthday = birthdayInput.value;
+      const password = passwordInput.value;
+      const confirmPassword = confirmPasswordInput.value;
+
+      if (!email || !name || !gender || !birthday || !password || !confirmPassword) {
+        showAlert("Campos incompletos", "Por favor completa todos los campos antes de registrarte.");
+        return;
+      }
+
+      if (password !== confirmPassword) {
+        showAlert("Contraseñas distintas", "Las contraseñas no coinciden. Inténtalo nuevamente.");
+        return;
+      }
+
+      showAlert("Registro exitoso 🌹", "Tu cuenta ha sido creada con éxito. Redirigiendo...");
+      setTimeout(() => { window.location.href = "principal.html"; }, 2000);
+    }
+
+    // Pantalla completa
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Modal de contacto
+    function openContact() { document.getElementById("contactModal").style.display = "flex"; }
+    function closeContact() { document.getElementById("contactModal").style.display = "none"; }
+
+    // Traducción básica (demo)
+    let isSpanish = true;
+    function toggleLanguage() {
+      isSpanish = !isSpanish;
+      const title = document.querySelector("h1");
+      const btn = document.querySelector(".main-btn");
+      if (!isSpanish) {
+        title.textContent = "CREATE YOUR ACCOUNT";
+        btn.textContent = "Register";
+        showAlert("Language", "Language switched to English 🇬🇧");
+      } else {
+        title.textContent = "CREA TU CUENTA";
+        btn.textContent = "Registrarse";
+        showAlert("Idioma", "Idioma cambiado a Español 🇪🇸");
+      }
+    }
+  </script>
+</body>
+</html>

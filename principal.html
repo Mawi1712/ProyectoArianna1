@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secret Talk - Principal</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #1a0000, #000);
+      color: #fff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow-x: hidden;
+      transition: background 0.6s, color 0.6s;
+    }
+
+    /* Encabezado */
+    header {
+      width: 100%;
+      background: rgba(20, 0, 0, 0.85);
+      border-bottom: 1px solid rgba(255, 0, 0, 0.3);
+      padding: 15px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(6px);
+    }
+
+    header h2 {
+      color: #ff4d4d;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    /* Contenedor principal */
+    .container {
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid rgba(255, 0, 0, 0.3);
+      border-radius: 20px;
+      padding: 50px;
+      width: 90%;
+      max-width: 950px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 0 25px rgba(255, 0, 0, 0.15);
+      backdrop-filter: blur(8px);
+      animation: fadeIn 1.2s ease;
+      margin: 120px auto 60px;
+    }
+
+    .left { width: 55%; }
+
+    .left h1 {
+      font-size: 2.2rem;
+      color: #ff4d4d;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+
+    .left p {
+      color: #ddd;
+      font-size: 1rem;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    button {
+      background-color: #b00000;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #ff4d4d;
+      transform: scale(1.07);
+      box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    }
+
+    .right img {
+      width: 320px;
+      filter: drop-shadow(0 0 15px #ff4d4d);
+      border-radius: 15px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: rgba(20, 0, 0, 0.85);
+      border-top: 1px solid rgba(255, 0, 0, 0.3);
+      padding: 25px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      color: #ccc;
+      font-size: 0.9rem;
+      backdrop-filter: blur(6px);
+    }
+
+    footer .socials {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 10px;
+    }
+
+    footer .socials a {
+      color: #ff4d4d;
+      font-size: 1.3rem;
+      transition: 0.3s;
+      text-decoration: none;
+    }
+
+    footer .socials a:hover {
+      color: #fff;
+      text-shadow: 0 0 10px #ff4d4d;
+    }
+
+    /* MODALES */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: #111;
+      padding: 30px;
+      border-radius: 20px;
+      border: 1px solid #ff4d4d;
+      text-align: center;
+      width: 90%;
+      max-width: 600px;
+      color: #fff;
+      position: relative;
+      animation: fadeIn 0.6s ease;
+    }
+
+    .close {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #fff;
+    }
+
+    iframe {
+      width: 100%;
+      height: 315px;
+      border-radius: 10px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Tema claro */
+    body.light {
+      background: #fafafa;
+      color: #111;
+    }
+
+    body.light .container {
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid #ccc;
+      color: #111;
+    }
+
+    body.light header,
+    body.light footer {
+      background: rgba(255, 255, 255, 0.9);
+      color: #000;
+    }
+
+    body.light button:hover {
+      background-color: #b00000;
+    }
+  </style>
+</head>
+<body>
+  <!-- Encabezado -->
+  <header>
+    <h2>Secret Talk 💬</h2>
+  </header>
+
+  <!-- Contenido principal -->
+  <div class="container">
+    <div class="left">
+      <h1>Bienvenido a Secret Talk</h1>
+      <p>
+        En esta comunidad podrás compartir mensajes anónimos, expresar tus pensamientos
+        y conectar con otros desde la empatía y el respeto.  
+        ¡Comparte tus secretos con libertad y sin juicios!
+      </p>
+
+      <!-- Botones principales -->
+      <div class="buttons">
+        <button onclick="verPerfil()"><a href="perfil.html">👤 Ver Perfil</a></button>
+        <button onclick="window.location.href='mensajes.html'">💌 Mandar Mensaje</button>
+        <button onclick="verConversaciones()"><a href="conversaciones.html">💬 Ver Conversaciones</a></button>
+        <button onclick="mostrarVideo()">🎥 Ver Tutorial</button>
+        <button onclick="abrirContacto()">📞 Contacto</button>
+        <button onclick="cambiarTema()">🌓 Cambiar Tema</button>
+        <button onclick="toggleFullScreen()">⛶ Pantalla Completa</button>
+        <button onclick="toggleLanguage()">🌐 Traducir</button>
+        <button onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+      </div>
+    </div>
+
+    <div class="right">
+      <img src="https://i.imgur.com/4w9bWjL.png" alt="Logo Secret Talk">
+    </div>
+  </div>
+
+  <!-- Modal contacto -->
+  <div id="contactoModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarContacto()">&times;</span>
+      <h2>Contáctanos</h2>
+      <p>📧 Correo: contacto@secrettalk.com</p>
+      <p>📱 WhatsApp: +51 999 888 777</p>
+      <p>📍 Dirección: Lima, Perú</p>
+    </div>
+  </div>
+
+  <!-- Modal tutorial -->
+  <div id="tutorialModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="cerrarVideo()">&times;</span>
+      <h2>🎥 Tutorial Secret Talk</h2>
+      <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="socials">
+      <a href="#">📘</a>
+      <a href="#">📱</a>
+      <a href="#">🎵</a>
+      <a href="#">💬</a>
+    </div>
+    <p>© 2025 Secret Talk | Todos los derechos reservados 🌹</p>
+  </footer>
+
+  <script>
+    function cambiarTema() {
+      document.body.classList.toggle("light");
+    }
+
+    function mostrarVideo() {
+      document.getElementById("tutorialModal").style.display = "flex";
+    }
+
+    function cerrarVideo() {
+      document.getElementById("tutorialModal").style.display = "none";
+    }
+
+    function abrirContacto() {
+      document.getElementById("contactoModal").style.display = "flex";
+    }
+
+    function cerrarContacto() {
+      document.getElementById("contactoModal").style.display = "none";
+    }
+
+    function verConversaciones() {
+      alert("Ingresando a tus conversaciones");
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen();
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    function toggleLanguage() {
+      const lang = document.documentElement.lang;
+      if (lang === "es") {
+        document.documentElement.lang = "en";
+        alert("🌐 Language changed to English!");
+      } else {
+        document.documentElement.lang = "es";
+        alert("🌐 Idioma cambiado a Español!");
+      }
+    }
+
+    function cerrarSesion() {
+      if (confirm("¿Deseas cerrar sesión?")) {
+        localStorage.clear();
+        window.location.href = "login.html";
+      }
+    }
+
+    function verPerfil() {
+      alert("👤 Aquí se mostrará el perfil del usuario (en desarrollo).");
+    }
+  </script>
+</body>
+</html>
