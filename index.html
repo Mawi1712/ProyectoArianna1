@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Secret Talk - Iniciar Sesión</title>
+  <title>Secret Talk - Inicio</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
     * {
       margin: 0;
@@ -16,155 +16,52 @@
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at center, #0a0a0a 40%, #000 100%);
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 50%, #0a0a0a 100%);
       color: #fff;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
       overflow-x: hidden;
-    }
-
-    header {
-      width: 100%;
-      background: rgba(0, 0, 0, 0.85);
-      border-bottom: 1px solid rgba(255, 0, 0, 0.4);
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
-      padding: 20px 0;
-      text-align: center;
-      position: fixed;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(6px);
-      animation: slideDown 1s ease forwards;
-    }
-
-    header h1 {
-      font-size: 2rem;
-      color: #ff0000;
-      letter-spacing: 3px;
-      text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-    }
-
-    main {
-      flex: 1;
-      width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 120px 20px 60px;
       position: relative;
     }
 
-    .container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 80%;
-      max-width: 1000px;
-      padding: 50px;
-      background: rgba(0, 0, 0, 0.7);
-      border: 1px solid rgba(255, 0, 0, 0.3);
-      border-radius: 20px;
-      box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
-      backdrop-filter: blur(8px);
-      animation: fadeIn 1.5s ease;
+    /* Partículas de fondo animadas */
+    .particles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
     }
 
-    .text-content {
-      flex: 1;
-      padding-right: 30px;
-    }
-
-    .text-content h2 {
-      font-size: 3rem;
-      margin-bottom: 15px;
-      color: #fff;
-      text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-      letter-spacing: 2px;
-    }
-
-    .text-content p {
-      font-style: italic;
-      color: #bbb;
-      margin-bottom: 25px;
-    }
-
-    .btn {
-      padding: 12px 30px;
-      border: none;
-      border-radius: 30px;
-      background: linear-gradient(135deg, #a00000, #400000);
-      color: white;
-      cursor: pointer;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      transition: all 0.3s ease;
-      text-decoration: none;
-      display: inline-block;
-    }
-
-    .btn:hover {
-      background: linear-gradient(135deg, #d10000, #600000);
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-      transform: scale(1.05);
-    }
-
-    .form-container {
-      flex: 1;
-      text-align: center;
-    }
-
-    .form-container img {
-      width: 250px;
-      margin-bottom: 20px;
-      filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.4));
-    }
-
-    input {
-      width: 80%;
-      padding: 12px;
-      margin-bottom: 15px;
-      border: none;
-      border-bottom: 2px solid #a00000;
-      background: transparent;
-      color: white;
-      font-size: 1rem;
-      outline: none;
-      transition: 0.3s;
-    }
-
-    input:focus {
-      border-color: #ff0000;
-      box-shadow: 0 5px 20px rgba(255, 0, 0, 0.2);
-    }
-
-    /* Fondo animado */
-    .glow {
+    .particle {
       position: absolute;
-      width: 200px;
-      height: 200px;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 50, 50, 0.3);
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255,0,0,0.4) 0%, transparent 70%);
-      animation: floatGlow 6s infinite ease-in-out alternate;
+      animation: float 15s infinite ease-in-out;
     }
 
-    .glow:nth-child(1) {
-      top: 15%;
-      left: 10%;
-      animation-delay: 0s;
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0; }
+      50% { opacity: 1; }
     }
 
-    .glow:nth-child(2) {
-      bottom: 20%;
-      right: 15%;
-      animation-delay: 2s;
-    }
-
-    @keyframes floatGlow {
-      from { transform: scale(1) translateY(0); opacity: 0.6; }
-      to { transform: scale(1.3) translateY(-20px); opacity: 1; }
+    /* Header mejorado */
+    header {
+      width: 100%;
+      background: rgba(10, 0, 0, 0.95);
+      border-bottom: 2px solid rgba(255, 50, 50, 0.3);
+      box-shadow: 0 5px 30px rgba(255, 0, 0, 0.2);
+      padding: 20px 50px;
+      position: fixed;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(15px);
+      animation: slideDown 0.8s ease;
     }
 
     @keyframes slideDown {
@@ -172,77 +69,268 @@
       to { transform: translateY(0); opacity: 1; }
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(40px); }
+    header .header-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      font-size: 2.2rem;
+      background: linear-gradient(135deg, #ff3232, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 4px;
+      font-weight: 700;
+      text-shadow: 0 0 30px rgba(255, 50, 50, 0.5);
+    }
+
+    header .tagline {
+      font-size: 0.85rem;
+      color: #999;
+      margin-top: 5px;
+      letter-spacing: 2px;
+    }
+
+    /* Main content */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 140px 30px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      width: 100%;
+      max-width: 1300px;
+      padding: 60px;
+      background: rgba(15, 0, 0, 0.85);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 50, 50, 0.2);
+      box-shadow: 0 20px 60px rgba(255, 0, 0, 0.15);
+      backdrop-filter: blur(20px);
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
+    .text-content h2 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #fff, #ffcccc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 3px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+
+    .text-content .quote {
+      font-style: italic;
+      color: #ccc;
+      margin-bottom: 35px;
+      font-size: 1.1rem;
+      padding-left: 20px;
+      border-left: 3px solid rgba(255, 50, 50, 0.5);
+      line-height: 1.7;
+    }
+
+    .btn {
+      padding: 16px 45px;
+      border: none;
+      border-radius: 50px;
+      background: linear-gradient(135deg, #c00000, #800000);
+      color: white;
+      cursor: pointer;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+      font-weight: 600;
+      transition: all 0.4s ease;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 8px 25px rgba(200, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #ff0000, #a00000);
+      box-shadow: 0 12px 35px rgba(255, 0, 0, 0.5);
+      transform: translateY(-3px);
+    }
+
+    .form-container {
+      text-align: center;
+      position: relative;
+    }
+
+    .form-container img {
+      width: 100%;
+      max-width: 400px;
+      filter: drop-shadow(0 0 40px rgba(255, 50, 50, 0.4));
+      animation: pulse 3s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* Efectos de brillo */
+    .glow {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,0,0,0.15) 0%, transparent 70%);
+      animation: floatGlow 8s infinite ease-in-out alternate;
+      pointer-events: none;
+    }
+
+    .glow:nth-child(1) {
+      top: -100px;
+      left: -100px;
+    }
+
+    .glow:nth-child(2) {
+      bottom: -100px;
+      right: -100px;
+      animation-delay: 3s;
+    }
+
+    @keyframes floatGlow {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+      100% { transform: translate(50px, -50px) scale(1.3); opacity: 0.6; }
+    }
+
+    /* Footer mejorado */
     footer {
       width: 100%;
-      background: rgba(0, 0, 0, 0.9);
-      border-top: 1px solid rgba(255, 0, 0, 0.3);
-      padding: 30px 20px;
+      background: rgba(5, 0, 0, 0.95);
+      border-top: 2px solid rgba(255, 50, 50, 0.3);
+      padding: 40px 30px;
       text-align: center;
-      box-shadow: 0 -5px 20px rgba(255, 0, 0, 0.2);
-      animation: fadeIn 2s ease;
+      box-shadow: 0 -5px 30px rgba(255, 0, 0, 0.15);
+      backdrop-filter: blur(15px);
     }
 
     footer h3 {
-      color: #ff0000;
-      margin-bottom: 10px;
-      letter-spacing: 1px;
+      color: #ff5555;
+      margin-bottom: 15px;
+      letter-spacing: 2px;
+      font-weight: 600;
     }
 
     footer p {
       color: #aaa;
-      font-size: 0.9rem;
-      margin-bottom: 15px;
+      font-size: 0.95rem;
+      margin-bottom: 20px;
+      line-height: 1.6;
     }
 
     .social-icons {
       display: flex;
       justify-content: center;
-      gap: 20px;
-      margin-bottom: 15px;
+      gap: 25px;
+      margin-bottom: 20px;
     }
 
     .social-icons a {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       color: #fff;
-      font-size: 1.5rem;
+      font-size: 1.4rem;
+      background: rgba(255, 50, 50, 0.1);
+      border: 2px solid rgba(255, 50, 50, 0.3);
+      border-radius: 50%;
       transition: all 0.3s ease;
     }
 
     .social-icons a:hover {
-      color: #ff0000;
-      transform: scale(1.2);
-      text-shadow: 0 0 15px rgba(255,0,0,0.6);
+      background: rgba(255, 0, 0, 0.3);
+      border-color: #ff0000;
+      transform: translateY(-5px) scale(1.1);
+      box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
     }
 
     .contact {
-      color: #bbb;
+      color: #999;
       font-size: 0.9rem;
+      margin-top: 15px;
     }
 
-    @media (max-width: 850px) {
+    /* Responsive */
+    @media (max-width: 992px) {
       .container {
-        flex-direction: column;
-        text-align: center;
+        grid-template-columns: 1fr;
+        gap: 40px;
+        padding: 40px;
       }
 
-      .text-content {
-        padding-right: 0;
-        margin-bottom: 30px;
+      .text-content h2 {
+        font-size: 2.5rem;
       }
 
-      .form-container img {
-        width: 200px;
+      header h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      header {
+        padding: 15px 20px;
+      }
+
+      .text-content h2 {
+        font-size: 2rem;
+      }
+
+      .container {
+        padding: 30px 20px;
       }
     }
   </style>
 </head>
 <body>
+  <div class="particles" id="particles"></div>
+  
   <header>
-    <h1>SECRET TALK</h1>
+    <div class="header-content">
+      <div>
+        <h1>SECRET TALK</h1>
+        <div class="tagline">Tu voz, tu secreto</div>
+      </div>
+    </div>
   </header>
 
   <main>
@@ -252,8 +340,10 @@
     <div class="container">
       <div class="text-content">
         <h2>Bienvenido</h2>
-        <p>“No todos los demonios destruyen... algunos te enseñan a amar.”</p>
-        <a class="btn" href="bienvenido.html">ARRIÉSGATE</a>
+        <p class="quote">"No todos los demonios destruyen... algunos te enseñan a amar en la oscuridad."</p>
+        <a class="btn" href="bienvenido.html">
+          <i class="bi bi-door-open"></i> ARRIÉSGATE
+        </a>
       </div>
 
       <div class="form-container">
@@ -267,11 +357,11 @@
     <p>Tu espacio seguro para expresar lo que sientes sin revelar quién eres.</p>
 
     <div class="social-icons">
-      <a href="https://facebook.com" target="_blank"><i class="bi bi-facebook"></i></a>
-      <a href="https://instagram.com" target="_blank"><i class="bi bi-instagram"></i></a>
-      <a href="https://tiktok.com" target="_blank"><i class="bi bi-tiktok"></i></a>
-      <a href="mailto:contacto@secrettalk.com"><i class="bi bi-envelope-fill"></i></a>
-      <a href="https://wa.me/51999999999" target="_blank"><i class="bi bi-whatsapp"></i></a>
+      <a href="https://facebook.com" target="_blank" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+      <a href="https://instagram.com" target="_blank" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+      <a href="https://tiktok.com" target="_blank" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+      <a href="mailto:contacto@secrettalk.com" aria-label="Email"><i class="bi bi-envelope-fill"></i></a>
+      <a href="https://wa.me/51999999999" target="_blank" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
     </div>
 
     <div class="contact">
@@ -280,16 +370,16 @@
   </footer>
 
   <script>
-    function login() {
-      const name = document.getElementById('nickname').value.trim();
-      if (name === "") {
-        alert("Por favor, ingresa un nombre anónimo antes de continuar.");
-        return;
-      }
-      localStorage.setItem('userAnonymous', name);
-      alert("Bienvenido " + name + ", tu identidad permanecerá en secreto...");
-      // Redirige a la siguiente pantalla
-      // window.location.href = "chat.html";
+    // Crear partículas de fondo
+    const particlesContainer = document.getElementById('particles');
+    for (let i = 0; i < 50; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      particle.style.animationDuration = (Math.random() * 10 + 10) + 's';
+      particlesContainer.appendChild(particle);
     }
   </script>
 </body>

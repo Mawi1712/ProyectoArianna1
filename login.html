@@ -6,180 +6,263 @@
   <title>Secret Talk - Iniciar Sesión</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top left, #1a0000, #000);
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 50%, #0a0a0a 100%);
       color: #fff;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Fondo animado */
+    /* Partículas animadas */
     .glow {
       position: absolute;
-      width: 200px;
-      height: 200px;
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, transparent 70%);
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.12) 0%, transparent 70%);
       animation: float 6s infinite ease-in-out alternate;
       z-index: -1;
     }
     .glow:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
     .glow:nth-child(2) { bottom: 10%; right: 15%; animation-delay: 2s; }
+    .glow:nth-child(3) { top: 60%; left: 60%; animation-delay: 4s; }
 
     @keyframes float {
       from { transform: scale(1) translateY(0); opacity: 0.4; }
-      to { transform: scale(1.3) translateY(-20px); opacity: 1; }
+      to { transform: scale(1.3) translateY(-20px); opacity: 0.7; }
     }
 
-    /* Encabezado */
+    /* Header mejorado */
     header {
       width: 100%;
-      position: fixed;
-      top: 0;
-      left: 0;
-      background: rgba(20, 0, 0, 0.8);
-      backdrop-filter: blur(10px);
-      padding: 15px 40px;
+      background: rgba(10, 0, 0, 0.95);
+      backdrop-filter: blur(15px);
+      padding: 20px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 1px solid rgba(255, 0, 0, 0.3);
-      box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
-      z-index: 5;
+      border-bottom: 2px solid rgba(255, 50, 50, 0.3);
+      box-shadow: 0 5px 30px rgba(255, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
 
     header h2 {
-      font-weight: 600;
-      color: #ff4d4d;
-      letter-spacing: 2px;
-      text-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+      background: linear-gradient(135deg, #ff3232, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+    }
+
+    header nav {
+      display: flex;
+      gap: 25px;
     }
 
     header nav a {
       color: #ccc;
-      margin: 0 15px;
       text-decoration: none;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
+      font-weight: 500;
       transition: 0.3s;
+      padding: 8px 16px;
+      border-radius: 8px;
     }
 
     header nav a:hover {
-      color: #ff4d4d;
-      text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+      color: #ff5555;
+      background: rgba(255, 50, 50, 0.1);
     }
 
-    /* Bienvenida */
+    /* Contenedor principal */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    /* Sección de bienvenida */
     .intro {
-      margin-top: 120px;
       text-align: center;
-      max-width: 600px;
-      animation: fadeIn 1.5s ease;
+      max-width: 700px;
+      margin-bottom: 40px;
+      animation: fadeIn 1s ease;
     }
 
     .intro h1 {
-      font-size: 2rem;
-      color: #ff4d4d;
-      text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+      font-size: 2.8rem;
+      background: linear-gradient(135deg, #ff3232, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+      font-weight: 700;
       animation: pulse 2s infinite alternate;
     }
 
     @keyframes pulse {
-      from { text-shadow: 0 0 10px rgba(255, 0, 0, 0.4); }
-      to { text-shadow: 0 0 25px rgba(255, 0, 0, 0.9); }
+      from { text-shadow: 0 0 10px rgba(255, 0, 0, 0); }
+      to { text-shadow: 0 0 25px rgba(255, 0, 0, 0.4); }
     }
 
     .intro p {
-      margin-top: 10px;
       color: #ccc;
-      font-size: 0.95rem;
-      line-height: 1.5;
+      font-size: 1.05rem;
+      line-height: 1.7;
     }
 
-    /* Contenedor login */
+    /* Contenedor de login */
     .login-container {
-      background: rgba(20, 0, 0, 0.85);
-      border: 1px solid rgba(255, 0, 0, 0.3);
-      border-radius: 25px;
+      background: rgba(15, 0, 0, 0.9);
+      border: 2px solid rgba(255, 50, 50, 0.3);
+      border-radius: 30px;
       padding: 50px;
       width: 90%;
-      max-width: 400px;
+      max-width: 480px;
       text-align: center;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 40px rgba(255, 0, 0, 0.25);
-      animation: fadeIn 1.5s ease;
-      margin: 40px auto;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 20px 60px rgba(255, 0, 0, 0.2);
+      animation: fadeInUp 1s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h2.login-title {
-      margin-bottom: 25px;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #fff, #ffcccc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       letter-spacing: 2px;
-      font-weight: 600;
-      text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+      font-weight: 700;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ff5555;
+      font-size: 1.1rem;
     }
 
     input {
       width: 100%;
-      padding: 12px;
-      margin: 12px 0;
-      border: none;
-      border-bottom: 2px solid #a00000;
-      background: transparent;
+      padding: 15px 15px 15px 45px;
+      border: 2px solid rgba(255, 50, 50, 0.3);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.5);
       color: white;
       font-size: 1rem;
       outline: none;
       transition: 0.3s;
+      font-family: 'Poppins', sans-serif;
     }
 
     input:focus {
-      border-color: #ff0000;
-      box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+      border-color: #ff3232;
+      background: rgba(255, 50, 50, 0.05);
+      box-shadow: 0 0 20px rgba(255, 50, 50, 0.3);
+    }
+
+    input::placeholder {
+      color: #666;
+    }
+
+    .forgot-password {
+      text-align: right;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+
+    .forgot-password a {
+      color: #ff5555;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: 0.3s;
+    }
+
+    .forgot-password a:hover {
+      color: #ff8888;
+      text-decoration: underline;
     }
 
     button {
-      background: linear-gradient(135deg, #b00000, #500000);
+      background: linear-gradient(135deg, #c00000, #800000);
       border: none;
-      border-radius: 30px;
-      padding: 12px 40px;
-      margin-top: 25px;
+      border-radius: 50px;
+      padding: 16px 40px;
+      width: 100%;
       color: white;
       cursor: pointer;
-      font-size: 1rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      transition: 0.3s;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      transition: all 0.4s;
+      box-shadow: 0 8px 25px rgba(200, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    button:hover::before {
+      left: 100%;
     }
 
     button:hover {
-      background: linear-gradient(135deg, #ff0000, #700000);
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+      background: linear-gradient(135deg, #ff0000, #a00000);
+      box-shadow: 0 12px 35px rgba(255, 0, 0, 0.5);
       transform: translateY(-3px);
     }
 
-    p {
+    .register-link {
       margin-top: 25px;
       color: #ccc;
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
-    a {
-      color: #ff4d4d;
+    .register-link a {
+      color: #ff5555;
       text-decoration: none;
+      font-weight: 600;
       transition: 0.3s;
     }
 
-    a:hover {
+    .register-link a:hover {
+      color: #ff8888;
       text-decoration: underline;
-      color: #ff6666;
     }
 
     /* Alerta personalizada */
@@ -188,18 +271,19 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
-      background: rgba(30, 0, 0, 0.95);
-      border: 1px solid rgba(255, 0, 0, 0.4);
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+      background: rgba(15, 0, 0, 0.98);
+      border: 2px solid rgba(255, 50, 50, 0.5);
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
       color: white;
-      padding: 30px 40px;
-      border-radius: 20px;
+      padding: 40px;
+      border-radius: 25px;
       text-align: center;
-      z-index: 15;
+      z-index: 200;
       width: 90%;
-      max-width: 350px;
-      transition: transform 0.3s ease, opacity 0.3s ease;
+      max-width: 400px;
+      transition: all 0.3s ease;
       opacity: 0;
+      backdrop-filter: blur(20px);
     }
 
     .alert-box.active {
@@ -207,28 +291,48 @@
       opacity: 1;
     }
 
+    .alert-box h3 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: #ff5555;
+      font-weight: 600;
+    }
+
+    .alert-box p {
+      font-size: 1rem;
+      color: #ddd;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+
+    .alert-box button {
+      padding: 12px 35px;
+      width: auto;
+    }
+
     /* Modal contacto */
     .modal {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.85);
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 20;
-      backdrop-filter: blur(5px);
+      z-index: 150;
+      backdrop-filter: blur(10px);
     }
 
     .modal-content {
-      background: rgba(20, 0, 0, 0.95);
-      border: 1px solid rgba(255, 0, 0, 0.4);
+      background: rgba(15, 0, 0, 0.95);
+      border: 2px solid rgba(255, 50, 50, 0.4);
       padding: 40px;
-      border-radius: 20px;
+      border-radius: 25px;
       text-align: center;
       width: 90%;
-      max-width: 400px;
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+      max-width: 450px;
+      color: #fff;
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
       animation: popUp 0.4s ease;
     }
 
@@ -238,67 +342,97 @@
     }
 
     .modal h3 {
-      color: #ff4d4d;
-      margin-bottom: 10px;
+      color: #ff5555;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      font-weight: 600;
     }
 
     .modal p {
       color: #ccc;
-      margin-bottom: 10px;
+      margin-bottom: 15px;
+      font-size: 1rem;
     }
 
     .modal .social-icons {
-      margin-top: 15px;
+      margin: 25px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
 
     .modal .social-icons a {
-      color: #ff4d4d;
-      margin: 0 8px;
+      width: 45px;
+      height: 45px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff5555;
       font-size: 1.3rem;
+      background: rgba(255, 50, 50, 0.1);
+      border: 2px solid rgba(255, 50, 50, 0.3);
+      border-radius: 50%;
       transition: 0.3s;
+      text-decoration: none;
     }
 
     .modal .social-icons a:hover {
       color: #fff;
-      text-shadow: 0 0 10px #ff0000;
+      background: rgba(255, 0, 0, 0.3);
+      border-color: #ff0000;
+      transform: scale(1.1);
     }
 
     .modal button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border-radius: 20px;
-      background: linear-gradient(135deg, #a00000, #500000);
-      border: none;
-      color: #fff;
-      cursor: pointer;
+      margin-top: 20px;
+      width: auto;
+      padding: 12px 30px;
     }
 
     /* Footer */
     footer {
       margin-top: auto;
       width: 100%;
-      background: rgba(20, 0, 0, 0.85);
-      border-top: 1px solid rgba(255, 0, 0, 0.3);
+      background: rgba(5, 0, 0, 0.95);
+      border-top: 2px solid rgba(255, 50, 50, 0.3);
       text-align: center;
-      padding: 15px 0;
-      color: #bbb;
-      font-size: 0.85rem;
+      padding: 25px 20px;
+      color: #aaa;
+      backdrop-filter: blur(15px);
+    }
+
+    footer p {
+      margin: 8px 0;
+      font-size: 0.9rem;
     }
 
     footer .social-icons {
-      margin-top: 8px;
+      margin: 15px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
     }
 
     footer .social-icons a {
-      color: #ff4d4d;
-      margin: 0 8px;
+      width: 45px;
+      height: 45px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #ff5555;
       font-size: 1.2rem;
+      background: rgba(255, 50, 50, 0.1);
+      border: 2px solid rgba(255, 50, 50, 0.3);
+      border-radius: 50%;
       transition: 0.3s;
+      text-decoration: none;
     }
 
     footer .social-icons a:hover {
       color: #fff;
-      text-shadow: 0 0 10px #ff0000;
+      background: rgba(255, 0, 0, 0.3);
+      border-color: #ff0000;
+      transform: translateY(-3px);
     }
 
     @keyframes fadeIn {
@@ -308,75 +442,95 @@
 
     @media (max-width: 600px) {
       header nav { display: none; }
-      .intro h1 { font-size: 1.5rem; }
-      .login-container { padding: 40px 25px; }
+      .intro h1 { font-size: 2rem; }
+      .login-container { padding: 35px 25px; }
+      header { padding: 15px 20px; }
     }
   </style>
 </head>
 <body>
   <div class="glow"></div>
   <div class="glow"></div>
+  <div class="glow"></div>
 
-  <!-- Encabezado -->
   <header>
     <h2>Secret Talk</h2>
     <nav>
-      <a href="#">Inicio</a>
-      <a href="#" onclick="openModal()">Contacto</a>
+      <a href="index.html"><i class="bi bi-house"></i> Inicio</a>
+      <a href="#" onclick="openModal()"><i class="bi bi-envelope"></i> Contacto</a>
     </nav>
   </header>
 
-  <!-- Bienvenida -->
-  <section class="intro">
-    <h1>Bienvenido a Secret Talk</h1>
-    <p>El lugar donde tus pensamientos tienen voz, pero tu identidad se mantiene en secreto.  
-    Conecta, comparte y exprésate sin miedo.</p>
-  </section>
+  <main>
+    <section class="intro">
+      <h1>Bienvenido de nuevo</h1>
+      <p>El lugar donde tus pensamientos tienen voz, pero tu identidad se mantiene en secreto. 
+      Conecta, comparte y exprésate sin miedo.</p>
+    </section>
 
-  <!-- Contenedor de Login -->
-  <div class="login-container">
-    <h2 class="login-title">INICIAR SESIÓN</h2>
-    <input type="email" id="email" placeholder="Correo electrónico">
-    <input type="password" id="password" placeholder="Contraseña">
-    <button onclick="login()">Ingresar</button>
-    <p>¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
-  </div>
+    <div class="login-container">
+      <h2 class="login-title">INICIAR SESIÓN</h2>
+      
+      <form id="loginForm">
+        <div class="input-group">
+          <i class="bi bi-envelope"></i>
+          <input type="email" id="email" placeholder="Correo electrónico" required>
+        </div>
 
-  <!-- Alerta personalizada -->
+        <div class="input-group">
+          <i class="bi bi-lock"></i>
+          <input type="password" id="password" placeholder="Contraseña" required>
+        </div>
+
+        <div class="forgot-password">
+          <a href="#">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit">
+          <i class="bi bi-box-arrow-in-right"></i> Ingresar
+        </button>
+      </form>
+
+      <p class="register-link">¿No tienes cuenta? <a href="register.html">Regístrate aquí</a></p>
+    </div>
+  </main>
+
   <div id="alertBox" class="alert-box">
     <h3 id="alertTitle"></h3>
     <p id="alertMessage"></p>
     <button onclick="closeAlert()">Aceptar</button>
   </div>
 
-  <!-- Modal contacto -->
   <div id="contactModal" class="modal">
     <div class="modal-content">
-      <h3>Contáctanos</h3>
+      <h3><i class="bi bi-envelope-heart"></i> Contáctanos</h3>
       <p>¿Tienes dudas o sugerencias? Escríbenos:</p>
-      <p><strong>Email:</strong> contacto@secrettalk.com</p>
+      <p><strong><i class="bi bi-envelope"></i> Email:</strong> contacto@secrettalk.com</p>
       <div class="social-icons">
-        <a href="#"><i class="bi bi-facebook"></i></a>
-        <a href="#"><i class="bi bi-instagram"></i></a>
-        <a href="#"><i class="bi bi-tiktok"></i></a>
-        <a href="#"><i class="bi bi-whatsapp"></i></a>
+        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+        <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
       </div>
       <button onclick="closeModal()">Cerrar</button>
     </div>
   </div>
 
-  <!-- Footer -->
   <footer>
     <p>© 2025 Secret Talk | Todos los derechos reservados</p>
     <div class="social-icons">
-      <a href="#"><i class="bi bi-facebook"></i></a>
-      <a href="#"><i class="bi bi-instagram"></i></a>
-      <a href="#"><i class="bi bi-tiktok"></i></a>
-      <a href="#"><i class="bi bi-whatsapp"></i></a>
+      <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+      <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+      <a href="#" aria-label="TikTok"><i class="bi bi-tiktok"></i></a>
+      <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
     </div>
   </footer>
 
   <script>
+    const form = document.getElementById('loginForm');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+
     function showAlert(title, message) {
       const alertBox = document.getElementById("alertBox");
       document.getElementById("alertTitle").innerText = title;
@@ -388,20 +542,31 @@
       document.getElementById("alertBox").classList.remove("active");
     }
 
-    function login() {
-      const email = document.getElementById("email").value.trim();
-      const password = document.getElementById("password").value.trim();
+    // Validación e inicio de sesión
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+      const password = passwordInput.value.trim();
 
       if (email === "" || password === "") {
-        showAlert("Campos incompletos", "Por favor completa todos los campos antes de ingresar.");
+        showAlert("⚠️ Campos incompletos", "Por favor completa todos los campos antes de ingresar.");
         return;
       }
 
-      showAlert("Bienvenido 🌹", "Inicio de sesión exitoso. Redirigiendo...");
-      setTimeout(() => {
-        window.location.href = "principal.html";
-      }, 1500);
-    }
+      // Verificar si existe el usuario en localStorage
+      const storedUser = JSON.parse(localStorage.getItem("usuario_secret_talk"));
+
+      if (storedUser && storedUser.correo === email && storedUser.contraseña === password) {
+        localStorage.setItem("user_logged_in", "true");
+        showAlert("✅ Bienvenido", "Inicio de sesión exitoso. Redirigiendo...");
+        setTimeout(() => {
+          window.location.href = "principal.html";
+        }, 1500);
+      } else {
+        showAlert("❌ Error de acceso", "Correo o contraseña incorrectos. Por favor verifica tus datos.");
+      }
+    });
 
     function openModal() {
       document.getElementById("contactModal").style.display = "flex";
@@ -410,6 +575,14 @@
     function closeModal() {
       document.getElementById("contactModal").style.display = "none";
     }
+
+    // Cerrar modal al hacer clic fuera
+    window.onclick = function(e) {
+      const modal = document.getElementById("contactModal");
+      if (e.target === modal) {
+        closeModal();
+      }
+    };
   </script>
 </body>
 </html>

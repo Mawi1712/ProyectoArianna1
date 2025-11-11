@@ -6,59 +6,62 @@
   <title>Secret Talk - Registro</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
       font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top left, #1a0000, #000);
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 50%, #0a0a0a 100%);
       color: #fff;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
       overflow-x: hidden;
       position: relative;
     }
 
-    /* Fondo animado */
+    /* Partículas animadas */
     .glow {
       position: absolute;
-      width: 200px;
-      height: 200px;
+      width: 250px;
+      height: 250px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(255, 0, 0, 0.15) 0%, transparent 70%);
-      animation: float 6s infinite ease-in-out alternate;
+      background: radial-gradient(circle, rgba(255, 0, 0, 0.12) 0%, transparent 70%);
+      animation: float 7s infinite ease-in-out alternate;
       z-index: -1;
     }
     .glow:nth-child(1) { top: 10%; left: 8%; animation-delay: 0s; }
-    .glow:nth-child(2) { bottom: 15%; right: 12%; animation-delay: 2s; }
+    .glow:nth-child(2) { bottom: 15%; right: 12%; animation-delay: 3s; }
+    .glow:nth-child(3) { top: 50%; left: 50%; animation-delay: 5s; }
 
     @keyframes float {
-      from { transform: scale(1) translateY(0); opacity: 0.4; }
-      to { transform: scale(1.3) translateY(-20px); opacity: 1; }
+      from { transform: scale(1) translateY(0) translateX(0); opacity: 0.4; }
+      to { transform: scale(1.4) translateY(-30px) translateX(30px); opacity: 0.8; }
     }
 
-    /* ENCABEZADO */
+    /* Header mejorado */
     header {
-      background: rgba(20, 0, 0, 0.9);
-      border-bottom: 1px solid rgba(255, 0, 0, 0.3);
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.3);
-      padding: 15px 30px;
+      background: rgba(10, 0, 0, 0.95);
+      border-bottom: 2px solid rgba(255, 50, 50, 0.3);
+      box-shadow: 0 5px 30px rgba(255, 0, 0, 0.2);
+      padding: 20px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: sticky;
       top: 0;
-      z-index: 5;
+      z-index: 100;
+      backdrop-filter: blur(15px);
     }
 
     header h2 {
-      color: #ff4d4d;
-      font-weight: 600;
-      letter-spacing: 2px;
-      text-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
+      background: linear-gradient(135deg, #ff3232, #ff6b6b);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-weight: 700;
+      font-size: 1.8rem;
+      letter-spacing: 3px;
     }
 
     .header-actions {
@@ -67,226 +70,440 @@
     }
 
     .header-actions button {
-      background: rgba(60, 0, 0, 0.8);
-      border: 1px solid rgba(255, 0, 0, 0.4);
+      background: rgba(255, 50, 50, 0.1);
+      border: 2px solid rgba(255, 50, 50, 0.3);
       color: #fff;
-      border-radius: 8px;
-      padding: 6px 12px;
+      border-radius: 10px;
+      padding: 8px 16px;
       cursor: pointer;
-      transition: 0.3s;
+      transition: all 0.3s;
       font-size: 0.9rem;
+      font-weight: 500;
     }
 
     .header-actions button:hover {
-      background: #ff0000;
-      color: #fff;
-      box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+      background: rgba(255, 0, 0, 0.3);
+      border-color: #ff0000;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
     }
 
-    /* FORMULARIO */
+    /* Formulario mejorado */
     .register-container {
-      background: rgba(20, 0, 0, 0.8);
-      border: 1px solid rgba(255, 0, 0, 0.3);
-      box-shadow: 0 0 40px rgba(255, 0, 0, 0.2);
-      border-radius: 25px;
-      padding: 40px;
+      background: rgba(15, 0, 0, 0.9);
+      border: 2px solid rgba(255, 50, 50, 0.3);
+      box-shadow: 0 20px 60px rgba(255, 0, 0, 0.2);
+      border-radius: 30px;
+      padding: 50px;
       width: 90%;
-      max-width: 480px;
+      max-width: 550px;
       text-align: center;
       margin: 50px auto;
-      backdrop-filter: blur(8px);
-      animation: fadeIn 1.5s ease;
+      backdrop-filter: blur(20px);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     h1 {
-      margin-bottom: 25px;
-      letter-spacing: 2px;
-      text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
-      font-weight: 600;
+      margin-bottom: 30px;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, #fff, #ffcccc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 3px;
+      font-weight: 700;
+    }
+
+    .subtitle {
+      color: #aaa;
+      margin-bottom: 35px;
+      font-size: 0.95rem;
+      line-height: 1.6;
     }
 
     form {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      align-items: center;
+      gap: 20px;
+    }
+
+    .input-group {
+      position: relative;
+      width: 100%;
     }
 
     input, select {
-      width: 90%;
-      padding: 12px;
-      border: none;
-      border-bottom: 2px solid #a00000;
-      background: transparent;
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid rgba(255, 50, 50, 0.3);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.5);
       color: white;
       font-size: 1rem;
       outline: none;
-      transition: 0.3s;
+      transition: all 0.3s;
+      font-family: 'Poppins', sans-serif;
     }
 
     input:focus, select:focus {
-      border-color: #ff0000;
-      box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+      border-color: #ff3232;
+      background: rgba(255, 50, 50, 0.05);
+      box-shadow: 0 0 20px rgba(255, 50, 50, 0.3);
+    }
+
+    input::placeholder {
+      color: #666;
+    }
+
+    select {
+      cursor: pointer;
+      color: #fff;
+    }
+
+    select option {
+      background: #1a0000;
+      color: #fff;
     }
 
     button.main-btn {
-      background: linear-gradient(135deg, #b00000, #500000);
+      background: linear-gradient(135deg, #c00000, #800000);
       border: none;
-      border-radius: 30px;
-      padding: 12px 40px;
-      margin-top: 25px;
+      border-radius: 50px;
+      padding: 16px 40px;
+      margin-top: 20px;
       color: white;
       cursor: pointer;
-      font-size: 1rem;
-      font-weight: 500;
-      letter-spacing: 1px;
-      transition: 0.3s;
+      font-size: 1.1rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      transition: all 0.4s;
+      box-shadow: 0 8px 25px rgba(200, 0, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    button.main-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+    }
+
+    button.main-btn:hover::before {
+      left: 100%;
     }
 
     button.main-btn:hover {
-      background: linear-gradient(135deg, #ff0000, #700000);
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.6);
+      background: linear-gradient(135deg, #ff0000, #a00000);
+      box-shadow: 0 12px 35px rgba(255, 0, 0, 0.5);
       transform: translateY(-3px);
     }
 
-    p { margin-top: 25px; color: #ccc; font-size: 0.9rem; }
+    .login-link {
+      margin-top: 25px;
+      color: #ccc;
+      font-size: 0.95rem;
+    }
 
-    a { color: #ff4d4d; text-decoration: none; transition: 0.3s; }
-    a:hover { text-decoration: underline; color: #ff6666; }
+    .login-link a {
+      color: #ff5555;
+      text-decoration: none;
+      font-weight: 600;
+      transition: 0.3s;
+    }
 
-    /* ALERTA */
+    .login-link a:hover {
+      color: #ff8888;
+      text-decoration: underline;
+    }
+
+    /* Alerta personalizada mejorada */
     .alert-box {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%) scale(0);
-      background: rgba(30, 0, 0, 0.95);
-      border: 1px solid rgba(255, 0, 0, 0.4);
-      box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+      background: rgba(15, 0, 0, 0.98);
+      border: 2px solid rgba(255, 50, 50, 0.5);
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.5);
       color: white;
-      padding: 30px 40px;
-      border-radius: 20px;
+      padding: 40px;
+      border-radius: 25px;
       text-align: center;
-      z-index: 10;
+      z-index: 200;
       width: 90%;
-      max-width: 350px;
-      transition: transform 0.3s ease, opacity 0.3s ease;
+      max-width: 400px;
+      transition: all 0.3s ease;
       opacity: 0;
+      backdrop-filter: blur(20px);
     }
-    .alert-box.active { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-    .alert-box h3 { margin-bottom: 15px; font-size: 1.2rem; color: #ff5555; }
-    .alert-box p { font-size: 0.95rem; color: #ddd; }
+    
+    .alert-box.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    
+    .alert-box h3 {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      color: #ff5555;
+      font-weight: 600;
+    }
+    
+    .alert-box p {
+      font-size: 1rem;
+      color: #ddd;
+      line-height: 1.6;
+      margin-bottom: 25px;
+    }
+    
     .alert-box button {
-      margin-top: 20px;
-      background: linear-gradient(135deg, #a00000, #500000);
-      padding: 10px 25px;
-      border-radius: 20px;
-      font-size: 0.9rem;
+      background: linear-gradient(135deg, #c00000, #800000);
+      padding: 12px 35px;
+      border-radius: 25px;
+      font-size: 1rem;
       color: white;
       border: none;
       cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
     }
 
-    /* MODAL CONTACTO */
+    .alert-box button:hover {
+      background: linear-gradient(135deg, #ff0000, #a00000);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
+    }
+
+    /* Modal contacto mejorado */
     .modal {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 20;
+      z-index: 150;
+      backdrop-filter: blur(10px);
     }
+    
     .modal-content {
-      background: rgba(20, 0, 0, 0.95);
-      border: 1px solid rgba(255,0,0,0.4);
-      padding: 25px;
-      border-radius: 15px;
+      background: rgba(15, 0, 0, 0.95);
+      border: 2px solid rgba(255, 50, 50, 0.4);
+      padding: 40px;
+      border-radius: 25px;
       text-align: center;
       width: 90%;
-      max-width: 400px;
+      max-width: 450px;
       color: #fff;
-      box-shadow: 0 0 25px rgba(255, 0, 0, 0.4);
+      box-shadow: 0 0 40px rgba(255, 0, 0, 0.4);
+      animation: popUp 0.4s ease;
     }
-    .modal-content h3 { color: #ff4d4d; margin-bottom: 10px; }
-    .modal-content p { font-size: 0.9rem; color: #ccc; }
+    
+    @keyframes popUp {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    .modal-content h3 {
+      color: #ff5555;
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+    
+    .modal-content p {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 15px;
+    }
+    
     .modal-content button {
-      margin-top: 15px;
-      padding: 8px 18px;
+      margin-top: 20px;
+      padding: 12px 30px;
       border: none;
-      border-radius: 10px;
-      background: #a00000;
+      border-radius: 25px;
+      background: linear-gradient(135deg, #c00000, #800000);
       color: #fff;
       cursor: pointer;
-    }
-
-    /* FOOTER */
-    footer {
-      background: rgba(20, 0, 0, 0.9);
-      border-top: 1px solid rgba(255, 0, 0, 0.3);
-      text-align: center;
-      padding: 20px 0;
-      color: #aaa;
-      letter-spacing: 1px;
-    }
-    footer .social-icons {
-      margin-bottom: 10px;
-    }
-    footer .social-icons i {
-      margin: 0 10px;
-      font-size: 1.3rem;
-      color: #ff4d4d;
-      cursor: pointer;
+      font-weight: 600;
       transition: 0.3s;
     }
+
+    .modal-content button:hover {
+      background: linear-gradient(135deg, #ff0000, #a00000);
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
+    }
+
+    /* Footer mejorado */
+    footer {
+      background: rgba(5, 0, 0, 0.95);
+      border-top: 2px solid rgba(255, 50, 50, 0.3);
+      text-align: center;
+      padding: 30px 20px;
+      color: #aaa;
+      backdrop-filter: blur(15px);
+      margin-top: auto;
+    }
+    
+    footer .social-icons {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    
+    footer .social-icons i {
+      width: 45px;
+      height: 45px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      color: #ff5555;
+      background: rgba(255, 50, 50, 0.1);
+      border: 2px solid rgba(255, 50, 50, 0.3);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
     footer .social-icons i:hover {
       color: #fff;
-      transform: scale(1.2);
+      background: rgba(255, 0, 0, 0.3);
+      border-color: #ff0000;
+      transform: translateY(-5px) scale(1.1);
     }
+    
+    footer .links {
+      margin: 15px 0;
+    }
+    
     footer a {
-      color: #ff4d4d;
-      margin: 0 8px;
+      color: #ff5555;
+      margin: 0 10px;
       font-size: 0.9rem;
+      text-decoration: none;
+      transition: 0.3s;
     }
-    footer a:hover { color: #fff; }
+    
+    footer a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* Indicador de fuerza de contraseña */
+    .password-strength {
+      margin-top: 5px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .password-strength-bar {
+      height: 100%;
+      width: 0;
+      transition: all 0.3s;
+      background: #ff0000;
+    }
+
+    .password-strength-bar.weak { width: 33%; background: #ff0000; }
+    .password-strength-bar.medium { width: 66%; background: #ffa500; }
+    .password-strength-bar.strong { width: 100%; background: #00ff00; }
+
+    /* Responsive */
+    @media (max-width: 576px) {
+      .register-container {
+        padding: 30px 25px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      header {
+        padding: 15px 20px;
+      }
+
+      .header-actions {
+        gap: 8px;
+      }
+
+      .header-actions button {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+      }
     }
   </style>
 </head>
 <body>
   <div class="glow"></div>
   <div class="glow"></div>
+  <div class="glow"></div>
 
   <header>
-    <h2>🌹 SECRET TALK 🌹</h2>
+    <h2>🌹 SECRET TALK</h2>
     <div class="header-actions">
-      <button onclick="toggleLanguage()">🌐 Traducir</button>
-      <button onclick="toggleFullScreen()">⛶ Pantalla completa</button>
-      <button onclick="openContact()">📩 Contacto</button>
+      <button onclick="toggleLanguage()"><i class="bi bi-translate"></i> Idioma</button>
+      <button onclick="toggleFullScreen()"><i class="bi bi-arrows-fullscreen"></i></button>
+      <button onclick="openContact()"><i class="bi bi-envelope"></i> Contacto</button>
     </div>
   </header>
 
   <div class="register-container">
     <h1>CREA TU CUENTA</h1>
+    <p class="subtitle">Únete a nuestra comunidad anónima y comienza a expresarte libremente</p>
+    
     <form id="registerForm">
-      <input type="email" id="email" placeholder="Correo electrónico">
-      <input type="text" id="name" placeholder="Nombre completo">
-      <select id="gender">
-        <option value="">Selecciona tu sexo</option>
-        <option value="Masculino">Masculino</option>
-        <option value="Femenino">Femenino</option>
-        <option value="Otro">Otro</option>
-      </select>
-      <input type="date" id="birthday">
-      <input type="password" id="password" placeholder="Contraseña">
-      <input type="password" id="confirmPassword" placeholder="Confirmar contraseña">
-      <button type="button" class="main-btn" onclick="register()">Registrarse</button>
+      <div class="input-group">
+        <input type="text" id="name" placeholder="Nombre completo" required>
+      </div>
+
+      <div class="input-group">
+        <input type="email" id="email" placeholder="Correo electrónico" required>
+      </div>
+
+      <div class="input-group">
+        <select id="gender" required>
+          <option value="">Selecciona tu género</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Femenino">Femenino</option>
+          <option value="Otro">Prefiero no decirlo</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <input type="date" id="birthday" placeholder="Fecha de nacimiento" required>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="password" placeholder="Contraseña" required>
+        <div class="password-strength">
+          <div class="password-strength-bar" id="strengthBar"></div>
+        </div>
+      </div>
+
+      <div class="input-group">
+        <input type="password" id="confirmPassword" placeholder="Confirmar contraseña" required>
+      </div>
+
+      <button type="submit" class="main-btn">
+        <i class="bi bi-person-plus"></i> Registrarse
+      </button>
     </form>
-    <p>¿Ya tienes una cuenta? <a href="login.html">Inicia sesión</a></p>
+    
+    <p class="login-link">¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a></p>
   </div>
 
   <div id="alertBox" class="alert-box">
@@ -297,10 +514,10 @@
 
   <div id="contactModal" class="modal">
     <div class="modal-content">
-      <h3>Contacto</h3>
-      <p>📧 Email: soporte@secrettalk.com</p>
-      <p>📞 WhatsApp: +51 999 888 777</p>
-      <p>📍 Lima, Perú</p>
+      <h3><i class="bi bi-envelope-heart"></i> Contáctanos</h3>
+      <p><i class="bi bi-envelope"></i> <strong>Email:</strong> soporte@secrettalk.com</p>
+      <p><i class="bi bi-whatsapp"></i> <strong>WhatsApp:</strong> +51 999 888 777</p>
+      <p><i class="bi bi-geo-alt"></i> <strong>Ubicación:</strong> Lima, Perú</p>
       <button onclick="closeContact()">Cerrar</button>
     </div>
   </div>
@@ -313,14 +530,44 @@
       <i class="bi bi-whatsapp"></i>
     </div>
     <p>
-      <a href="#">Inicio</a> |
+      <a href="index.html">Inicio</a> |
       <a href="#">Ayuda</a> |
-      <a href="#">Política de Privacidad</a>
+      <a href="#">Política de Privacidad</a> |
+      <a href="#">Términos de Uso</a>
     </p>
-    <p>© 2025 Secret Talk | Crea, Conecta y Expresa 🌙</p>
+    <p>© 2025 Secret Talk | Conecta, Expresa, Libera 🌙</p>
   </footer>
 
   <script>
+    const form = document.getElementById('registerForm');
+    const nameInput = document.getElementById('name');
+    const emailInput = document.getElementById('email');
+    const genderSelect = document.getElementById('gender');
+    const birthdayInput = document.getElementById('birthday');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const strengthBar = document.getElementById('strengthBar');
+
+    // Validación de fuerza de contraseña
+    passwordInput.addEventListener('input', function() {
+      const password = this.value;
+      let strength = 0;
+
+      if (password.length >= 8) strength++;
+      if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
+      if (password.match(/[0-9]/)) strength++;
+      if (password.match(/[^a-zA-Z0-9]/)) strength++;
+
+      strengthBar.className = 'password-strength-bar';
+      if (strength <= 1) {
+        strengthBar.classList.add('weak');
+      } else if (strength <= 3) {
+        strengthBar.classList.add('medium');
+      } else {
+        strengthBar.classList.add('strong');
+      }
+    });
+
     // Alerta personalizada
     function showAlert(title, message) {
       const alertBox = document.getElementById("alertBox");
@@ -328,32 +575,63 @@
       document.getElementById("alertMessage").innerText = message;
       alertBox.classList.add("active");
     }
+
     function closeAlert() {
       document.getElementById("alertBox").classList.remove("active");
     }
 
-    // Registro
-    function register() {
-      const email = emailInput.value.trim();
+    // Registro con validación y guardado en localStorage
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
       const name = nameInput.value.trim();
+      const email = emailInput.value.trim();
       const gender = genderSelect.value;
       const birthday = birthdayInput.value;
       const password = passwordInput.value;
       const confirmPassword = confirmPasswordInput.value;
 
-      if (!email || !name || !gender || !birthday || !password || !confirmPassword) {
-        showAlert("Campos incompletos", "Por favor completa todos los campos antes de registrarte.");
+      // Validaciones
+      if (!name || !email || !gender || !birthday || !password || !confirmPassword) {
+        showAlert("⚠️ Campos incompletos", "Por favor completa todos los campos antes de registrarte.");
+        return;
+      }
+
+      if (!email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
+        showAlert("⚠️ Email inválido", "Por favor ingresa un correo electrónico válido.");
+        return;
+      }
+
+      if (password.length < 6) {
+        showAlert("⚠️ Contraseña débil", "La contraseña debe tener al menos 6 caracteres.");
         return;
       }
 
       if (password !== confirmPassword) {
-        showAlert("Contraseñas distintas", "Las contraseñas no coinciden. Inténtalo nuevamente.");
+        showAlert("⚠️ Contraseñas distintas", "Las contraseñas no coinciden. Inténtalo nuevamente.");
         return;
       }
 
-      showAlert("Registro exitoso 🌹", "Tu cuenta ha sido creada con éxito. Redirigiendo...");
-      setTimeout(() => { window.location.href = "principal.html"; }, 2000);
-    }
+      // Guardar usuario en localStorage
+      const userData = {
+        nombre: name,
+        correo: email,
+        genero: gender,
+        fechaNacimiento: birthday,
+        contraseña: password,
+        fechaRegistro: new Date().toLocaleDateString(),
+        foto: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
+      };
+
+      localStorage.setItem("usuario_secret_talk", JSON.stringify(userData));
+      localStorage.setItem("user_logged_in", "true");
+
+      showAlert("✅ Registro exitoso", "Tu cuenta ha sido creada con éxito. Redirigiendo a la página principal...");
+      
+      setTimeout(() => {
+        window.location.href = "principal.html";
+      }, 2000);
+    });
 
     // Pantalla completa
     function toggleFullScreen() {
@@ -365,23 +643,43 @@
     }
 
     // Modal de contacto
-    function openContact() { document.getElementById("contactModal").style.display = "flex"; }
-    function closeContact() { document.getElementById("contactModal").style.display = "none"; }
+    function openContact() {
+      document.getElementById("contactModal").style.display = "flex";
+    }
 
-    // Traducción básica (demo)
+    function closeContact() {
+      document.getElementById("contactModal").style.display = "none";
+    }
+
+    // Cerrar modal al hacer clic fuera
+    window.onclick = function(e) {
+      const modal = document.getElementById("contactModal");
+      if (e.target === modal) {
+        closeContact();
+      }
+    };
+
+    // Traducción básica
     let isSpanish = true;
     function toggleLanguage() {
       isSpanish = !isSpanish;
       const title = document.querySelector("h1");
+      const subtitle = document.querySelector(".subtitle");
       const btn = document.querySelector(".main-btn");
+      const loginText = document.querySelector(".login-link");
+
       if (!isSpanish) {
         title.textContent = "CREATE YOUR ACCOUNT";
-        btn.textContent = "Register";
-        showAlert("Language", "Language switched to English 🇬🇧");
+        subtitle.textContent = "Join our anonymous community and start expressing yourself freely";
+        btn.innerHTML = '<i class="bi bi-person-plus"></i> Register';
+        loginText.innerHTML = 'Already have an account? <a href="login.html">Login here</a>';
+        showAlert("🌐 Language", "Language switched to English");
       } else {
         title.textContent = "CREA TU CUENTA";
-        btn.textContent = "Registrarse";
-        showAlert("Idioma", "Idioma cambiado a Español 🇪🇸");
+        subtitle.textContent = "Únete a nuestra comunidad anónima y comienza a expresarte libremente";
+        btn.innerHTML = '<i class="bi bi-person-plus"></i> Registrarse';
+        loginText.innerHTML = '¿Ya tienes una cuenta? <a href="login.html">Inicia sesión aquí</a>';
+        showAlert("🌐 Idioma", "Idioma cambiado a Español");
       }
     }
   </script>
