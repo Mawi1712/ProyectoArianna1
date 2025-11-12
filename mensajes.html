@@ -735,6 +735,7 @@
       }
     }
 
+    // Cargar usuarios disponibles
     document.addEventListener('DOMContentLoaded', function() {
       const usuarioActual = JSON.parse(localStorage.getItem("usuario_secret_talk"));
       const todosUsuarios = JSON.parse(localStorage.getItem("todos_usuarios_secret_talk")) || [];
@@ -820,8 +821,8 @@
       const newMessage = {
         id: Date.now(),
         alias: form.alias.value || "Anónimo",
-        remitente: usuarioActual.correo, // NUEVO: Guardamos quien envía
-        destinatario: destinatarioEmail, // NUEVO: Guardamos quien recibe
+        remitente: usuarioActual.correo,
+        destinatario: destinatarioEmail,
         subject: form.subject.value,
         message: form.message.value,
         date: new Date().toLocaleString('es-ES', {
@@ -850,6 +851,7 @@
         charCounter.textContent = '0 / 1000 caracteres';
         moderationWarning.classList.remove('show');
         
+        // Recargar usuarios
         const usuarioActual = JSON.parse(localStorage.getItem("usuario_secret_talk"));
         const todosUsuarios = JSON.parse(localStorage.getItem("todos_usuarios_secret_talk")) || [];
         const selectDestinatario = document.getElementById('destinatario');

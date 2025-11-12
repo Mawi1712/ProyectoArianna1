@@ -460,8 +460,8 @@
       // Obtener todos los mensajes
       const allMessages = JSON.parse(localStorage.getItem("mensajes_secret_talk")) || [];
       
-      // Filtrar mensajes dirigidos al usuario actual
-      messages = allMessages.filter(m => m.email === user.correo);
+      // Filtrar mensajes dirigidos al usuario actual (CORREGIDO)
+      messages = allMessages.filter(m => m.destinatario === user.correo);
       
       updateInboxStats();
       renderInbox();
@@ -569,6 +569,15 @@
 
     // Abrir mensaje
     function openMessage(id) {
+      // Marcar como leído
+      const allMessages = JSON.parse(localStorage.getItem("mensajes_secret_talk")) || [];
+      const msgIndex = allMessages.findIndex(m => m.id === id);
+      
+      if (msgIndex !== -1 && !allMessages[msgIndex].read) {
+        allMessages[msgIndex].read = true;
+        localStorage.setItem("mensajes_secret_talk", JSON.stringify(allMessages));
+      }
+      
       window.location.href = `conversaciones.html`;
     }
 
