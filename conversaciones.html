@@ -55,6 +55,31 @@
       font-size: 1.3rem;
       color: #fff;
       box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+      position: relative;
+    }
+
+    /* Badge de notificaciones */
+    .notification-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: #ff0000;
+      color: white;
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(255, 0, 0, 0.5);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.1); }
     }
 
     .title {
@@ -63,6 +88,11 @@
       -webkit-text-fill-color: transparent;
       font-weight: bold;
       font-size: 1.5rem;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
     }
 
     .btn {
@@ -88,7 +118,7 @@
     }
 
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 60px auto;
       padding: 30px;
     }
@@ -103,6 +133,97 @@
       font-weight: 700;
     }
 
+    /* Barra de filtros y búsqueda */
+    .filters {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .search-box {
+      flex: 1;
+      min-width: 250px;
+      position: relative;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 45px 12px 15px;
+      border: 2px solid var(--rojo);
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.3);
+      color: var(--texto);
+      font-size: 1rem;
+    }
+
+    .search-box i {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--rojo);
+      font-size: 1.2rem;
+    }
+
+    .filter-btn {
+      padding: 12px 20px;
+      border: 2px solid var(--rojo);
+      border-radius: 12px;
+      background: rgba(255, 50, 50, 0.1);
+      color: var(--texto);
+      cursor: pointer;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: rgba(255, 50, 50, 0.3);
+      border-color: var(--rojo-suave);
+    }
+
+    /* Stats rápidos */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .stat-card {
+      background: var(--panel);
+      border: 2px solid var(--rojo);
+      border-radius: 15px;
+      padding: 20px;
+      text-align: center;
+      transition: 0.3s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(255, 0, 0, 0.3);
+    }
+
+    .stat-card i {
+      font-size: 2rem;
+      color: var(--rojo);
+      margin-bottom: 10px;
+    }
+
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--rojo-suave);
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 5px;
+    }
+
+    /* Lista de mensajes */
     .chat-list {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -120,6 +241,24 @@
       backdrop-filter: blur(15px);
       position: relative;
       overflow: hidden;
+    }
+
+    .chat-card.unread {
+      border-color: #00ff00;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+    }
+
+    .chat-card.unread::before {
+      content: 'NUEVO';
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #00ff00;
+      color: #000;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
     }
 
     .chat-card::before {
@@ -180,24 +319,45 @@
       gap: 5px;
     }
 
-    .empty-state {
-      text-align: center;
-      padding: 60px 20px;
-      color: #666;
+    /* Sistema de reacciones */
+    .reactions {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+      padding-top: 15px;
+      border-top: 1px solid rgba(255, 50, 50, 0.2);
     }
 
-    .empty-state i {
-      font-size: 5rem;
-      color: var(--rojo);
-      margin-bottom: 20px;
-      opacity: 0.5;
+    .reaction-btn {
+      background: rgba(255, 50, 50, 0.1);
+      border: 2px solid rgba(255, 50, 50, 0.3);
+      border-radius: 20px;
+      padding: 6px 12px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.9rem;
     }
 
-    .empty-state p {
-      font-size: 1.2rem;
-      margin-bottom: 25px;
+    .reaction-btn:hover {
+      background: rgba(255, 50, 50, 0.3);
+      transform: scale(1.1);
     }
 
+    .reaction-btn.active {
+      background: var(--rojo);
+      border-color: var(--rojo-suave);
+      animation: bounce 0.5s;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* Modal mejorado */
     .modal {
       display: none;
       position: fixed;
@@ -297,6 +457,57 @@
       font-size: 1.05rem;
     }
 
+    /* Reacciones en modal */
+    .modal-reactions {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 25px;
+      padding: 20px;
+      background: rgba(255, 50, 50, 0.05);
+      border-radius: 15px;
+    }
+
+    .modal-reaction-btn {
+      background: rgba(255, 50, 50, 0.1);
+      border: 2px solid var(--rojo);
+      border-radius: 15px;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: 0.3s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      min-width: 80px;
+    }
+
+    .modal-reaction-btn:hover {
+      background: rgba(255, 50, 50, 0.3);
+      transform: translateY(-5px);
+      box-shadow: 0 5px 20px rgba(255, 0, 0, 0.3);
+    }
+
+    .modal-reaction-btn.active {
+      background: var(--rojo);
+      border-color: var(--rojo-suave);
+      transform: scale(1.1);
+    }
+
+    .modal-reaction-btn .emoji {
+      font-size: 2rem;
+    }
+
+    .modal-reaction-btn .count {
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .modal-reaction-btn .label {
+      font-size: 0.75rem;
+      color: #aaa;
+    }
+
     .file-preview {
       margin-top: 20px;
       text-align: center;
@@ -312,21 +523,22 @@
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
-    .file-preview a {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 12px 30px;
-      background: var(--rojo);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 25px;
-      transition: 0.3s;
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #666;
     }
 
-    .file-preview a:hover {
-      background: var(--rojo-suave);
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+    .empty-state i {
+      font-size: 5rem;
+      color: var(--rojo);
+      margin-bottom: 20px;
+      opacity: 0.5;
+    }
+
+    .empty-state p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
     }
 
     footer {
@@ -374,6 +586,10 @@
       h2 { font-size: 2rem; }
       header { padding: 15px 20px; }
       .modal-content { padding: 25px; }
+      .filters { flex-direction: column; }
+      .search-box { width: 100%; }
+      .stats { grid-template-columns: 1fr; }
+      .modal-reactions { flex-wrap: wrap; }
     }
   </style>
 </head>
@@ -381,20 +597,67 @@
 
   <header>
     <div class="brand">
-      <div class="logo">ST</div>
+      <div class="logo">
+        ST
+        <span class="notification-badge" id="unreadBadge">0</span>
+      </div>
       <div>
         <div class="title">Secret Talk</div>
         <small>Conversaciones guardadas</small>
       </div>
     </div>
-    <a href="principal.html" class="btn"><i class="bi bi-house-door"></i> Inicio</a>
+    <div class="header-actions">
+      <button class="btn" onclick="markAllAsRead()">
+        <i class="bi bi-check-all"></i> Marcar todo leído
+      </button>
+      <a href="principal.html" class="btn"><i class="bi bi-house-door"></i> Inicio</a>
+    </div>
   </header>
 
   <div class="container">
     <h2><i class="bi bi-chat-dots"></i> Mis Conversaciones</h2>
+
+    <!-- Estadísticas -->
+    <div class="stats">
+      <div class="stat-card">
+        <i class="bi bi-envelope-fill"></i>
+        <div class="stat-value" id="totalMessages">0</div>
+        <div class="stat-label">Total mensajes</div>
+      </div>
+      <div class="stat-card">
+        <i class="bi bi-envelope-open"></i>
+        <div class="stat-value" id="unreadMessages">0</div>
+        <div class="stat-label">No leídos</div>
+      </div>
+      <div class="stat-card">
+        <i class="bi bi-heart-fill"></i>
+        <div class="stat-value" id="totalReactions">0</div>
+        <div class="stat-label">Reacciones totales</div>
+      </div>
+    </div>
+
+    <!-- Filtros y búsqueda -->
+    <div class="filters">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Buscar mensajes..." onkeyup="filterMessages()">
+        <i class="bi bi-search"></i>
+      </div>
+      <button class="filter-btn active" onclick="setFilter('all')">
+        <i class="bi bi-inbox"></i> Todos
+      </button>
+      <button class="filter-btn" onclick="setFilter('unread')">
+        <i class="bi bi-envelope"></i> No leídos
+      </button>
+      <button class="filter-btn" onclick="setFilter('recent')">
+        <i class="bi bi-clock"></i> Recientes
+      </button>
+    </div>
+
+    <!-- Lista de conversaciones -->
     <div id="chatList" class="chat-list"></div>
   </div>
 
+  <!-- Modal de mensaje -->
   <div id="chatModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
@@ -402,6 +665,30 @@
         <button class="close-btn" onclick="closeModal()">&times;</button>
       </div>
       <div id="modalBody"></div>
+      
+      <!-- Reacciones en el modal -->
+      <div class="modal-reactions" id="modalReactions">
+        <div class="modal-reaction-btn" onclick="toggleReaction('like')">
+          <span class="emoji">❤️</span>
+          <span class="count" id="reactionLike">0</span>
+          <span class="label">Me gusta</span>
+        </div>
+        <div class="modal-reaction-btn" onclick="toggleReaction('smile')">
+          <span class="emoji">😊</span>
+          <span class="count" id="reactionSmile">0</span>
+          <span class="label">Me hizo sonreír</span>
+        </div>
+        <div class="modal-reaction-btn" onclick="toggleReaction('love')">
+          <span class="emoji">💖</span>
+          <span class="count" id="reactionLove">0</span>
+          <span class="label">Me encanta</span>
+        </div>
+        <div class="modal-reaction-btn" onclick="toggleReaction('support')">
+          <span class="emoji">🤗</span>
+          <span class="count" id="reactionSupport">0</span>
+          <span class="label">Te apoyo</span>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -417,20 +704,67 @@
   </footer>
 
   <script>
-    const chatList = document.getElementById('chatList');
-    const chatModal = document.getElementById('chatModal');
-    const modalSubject = document.getElementById('modalSubject');
-    const modalBody = document.getElementById('modalBody');
+    let messages = [];
+    let currentFilter = 'all';
+    let currentMessageId = null;
 
+    // Cargar mensajes al iniciar
     function loadMessages() {
-      const messages = JSON.parse(localStorage.getItem("mensajes_secret_talk")) || [];
+      messages = JSON.parse(localStorage.getItem("mensajes_secret_talk")) || [];
+      updateStats();
+      renderMessages();
+    }
+
+    // Actualizar estadísticas
+    function updateStats() {
+      const total = messages.length;
+      const unread = messages.filter(m => !m.read).length;
+      const totalReactions = messages.reduce((sum, m) => {
+        return sum + (m.reactions?.like || 0) + (m.reactions?.smile || 0) + 
+               (m.reactions?.love || 0) + (m.reactions?.support || 0);
+      }, 0);
+
+      document.getElementById('totalMessages').textContent = total;
+      document.getElementById('unreadMessages').textContent = unread;
+      document.getElementById('totalReactions').textContent = totalReactions;
+      document.getElementById('unreadBadge').textContent = unread;
+
+      if (unread === 0) {
+        document.getElementById('unreadBadge').style.display = 'none';
+      } else {
+        document.getElementById('unreadBadge').style.display = 'flex';
+      }
+    }
+
+    // Renderizar mensajes
+    function renderMessages() {
+      const chatList = document.getElementById('chatList');
       chatList.innerHTML = "";
 
-      if (messages.length === 0) {
+      let filtered = [...messages];
+
+      // Aplicar filtro
+      if (currentFilter === 'unread') {
+        filtered = filtered.filter(m => !m.read);
+      } else if (currentFilter === 'recent') {
+        filtered = filtered.slice(-10);
+      }
+
+      // Aplicar búsqueda
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      if (search) {
+        filtered = filtered.filter(m =>
+          m.subject.toLowerCase().includes(search) ||
+          m.message.toLowerCase().includes(search) ||
+          m.alias.toLowerCase().includes(search)
+        );
+      }
+
+      if (filtered.length === 0) {
         chatList.innerHTML = `
           <div class="empty-state">
             <i class="bi bi-inbox"></i>
-            <p>No hay conversaciones guardadas aún.</p>
+            <p>No hay conversaciones que mostrar.</p>
             <a href="mensajes.html" class="btn">
               <i class="bi bi-plus-circle"></i> Crear nuevo mensaje
             </a>
@@ -439,21 +773,46 @@
         return;
       }
 
-      messages.reverse().forEach(msg => {
+      filtered.reverse().forEach(msg => {
+        const totalReactions = (msg.reactions?.like || 0) + (msg.reactions?.smile || 0) + 
+                              (msg.reactions?.love || 0) + (msg.reactions?.support || 0);
+        
         const card = document.createElement('div');
         card.classList.add('chat-card');
+        if (!msg.read) card.classList.add('unread');
+        
         card.innerHTML = `
           <div class="chat-subject"><i class="bi bi-envelope-heart"></i> ${msg.subject}</div>
           <div class="chat-alias"><i class="bi bi-person"></i> De: ${msg.alias}</div>
           <div class="chat-preview">${msg.message.substring(0, 100)}${msg.message.length > 100 ? '...' : ''}</div>
           <div class="chat-date"><i class="bi bi-calendar"></i> ${msg.date}</div>
+          ${totalReactions > 0 ? `
+            <div class="reactions">
+              ${msg.reactions.like > 0 ? `<span>❤️ ${msg.reactions.like}</span>` : ''}
+              ${msg.reactions.smile > 0 ? `<span>😊 ${msg.reactions.smile}</span>` : ''}
+              ${msg.reactions.love > 0 ? `<span>💖 ${msg.reactions.love}</span>` : ''}
+              ${msg.reactions.support > 0 ? `<span>🤗 ${msg.reactions.support}</span>` : ''}
+            </div>
+          ` : ''}
         `;
         card.onclick = () => openModal(msg);
         chatList.appendChild(card);
       });
     }
 
+    // Abrir modal de mensaje
     function openModal(msg) {
+      currentMessageId = msg.id;
+      
+      // Marcar como leído
+      if (!msg.read) {
+        msg.read = true;
+        messages = messages.map(m => m.id === msg.id ? msg : m);
+        localStorage.setItem("mensajes_secret_talk", JSON.stringify(messages));
+        updateStats();
+        renderMessages();
+      }
+
       modalSubject.innerHTML = `<i class="bi bi-envelope-open"></i> ${msg.subject}`;
       modalBody.innerHTML = `
         <div class="modal-info">
@@ -464,13 +823,62 @@
         <div class="chat-message">${msg.message}</div>
         ${msg.file ? getFilePreview(msg.file) : ""}
       `;
+
+      // Actualizar contadores de reacciones
+      document.getElementById('reactionLike').textContent = msg.reactions?.like || 0;
+      document.getElementById('reactionSmile').textContent = msg.reactions?.smile || 0;
+      document.getElementById('reactionLove').textContent = msg.reactions?.love || 0;
+      document.getElementById('reactionSupport').textContent = msg.reactions?.support || 0;
+
       chatModal.style.display = "flex";
     }
 
+    // Cerrar modal
     function closeModal() {
       chatModal.style.display = "none";
+      currentMessageId = null;
     }
 
+    // Toggle reacción
+    function toggleReaction(type) {
+      if (!currentMessageId) return;
+
+      const msgIndex = messages.findIndex(m => m.id === currentMessageId);
+      if (msgIndex === -1) return;
+
+      if (!messages[msgIndex].reactions) {
+        messages[msgIndex].reactions = { like: 0, smile: 0, love: 0, support: 0 };
+      }
+
+      // Toggle: incrementar o decrementar
+      const currentValue = messages[msgIndex].reactions[type] || 0;
+      messages[msgIndex].reactions[type] = currentValue > 0 ? 0 : 1;
+
+      // Guardar en localStorage
+      localStorage.setItem("mensajes_secret_talk", JSON.stringify(messages));
+
+      // Actualizar UI
+      const reactionBtn = document.querySelector(`#modalReactions .modal-reaction-btn:nth-child(${getReactionIndex(type)})`);
+      const countElement = document.getElementById(`reaction${type.charAt(0).toUpperCase() + type.slice(1)}`);
+      
+      countElement.textContent = messages[msgIndex].reactions[type];
+      
+      if (messages[msgIndex].reactions[type] > 0) {
+        reactionBtn.classList.add('active');
+      } else {
+        reactionBtn.classList.remove('active');
+      }
+
+      updateStats();
+      renderMessages();
+    }
+
+    function getReactionIndex(type) {
+      const types = ['like', 'smile', 'love', 'support'];
+      return types.indexOf(type) + 1;
+    }
+
+    // Obtener preview de archivo
     function getFilePreview(file) {
       if (file.startsWith("data:image")) {
         return `<div class="file-preview">
@@ -490,11 +898,51 @@
       }
     }
 
+    // Filtrar mensajes
+    function setFilter(filter) {
+      currentFilter = filter;
+      
+      // Actualizar botones activos
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.closest('.filter-btn').classList.add('active');
+      
+      renderMessages();
+    }
+
+    // Buscar mensajes
+    function filterMessages() {
+      renderMessages();
+    }
+
+    // Marcar todos como leídos
+    function markAllAsRead() {
+      if (messages.length === 0) return;
+      
+      if (confirm('¿Marcar todos los mensajes como leídos?')) {
+        messages = messages.map(m => ({ ...m, read: true }));
+        localStorage.setItem("mensajes_secret_talk", JSON.stringify(messages));
+        updateStats();
+        renderMessages();
+      }
+    }
+
+    // Cerrar modal al hacer clic fuera
     window.onclick = function(e) {
       if (e.target === chatModal) closeModal();
     };
 
+    // Inicializar
     loadMessages();
+
+    // Actualizar cada 30 segundos para detectar nuevos mensajes
+    setInterval(() => {
+      const newMessages = JSON.parse(localStorage.getItem("mensajes_secret_talk")) || [];
+      if (newMessages.length !== messages.length) {
+        loadMessages();
+      }
+    }, 30000);
   </script>
 </body>
 </html>

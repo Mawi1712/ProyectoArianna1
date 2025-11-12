@@ -166,6 +166,7 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      position: relative;
     }
 
     label {
@@ -200,7 +201,172 @@
 
     textarea {
       resize: vertical;
-      min-height: 120px;
+      min-height: 150px;
+    }
+
+    .char-counter {
+      text-align: right;
+      font-size: 0.85rem;
+      color: #aaa;
+      margin-top: -15px;
+    }
+
+    .char-counter.warning {
+      color: orange;
+    }
+
+    .char-counter.danger {
+      color: red;
+    }
+
+    /* Selector de emojis */
+    .emoji-picker {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      padding: 10px;
+      background: rgba(255, 50, 50, 0.05);
+      border-radius: 12px;
+      margin-top: 10px;
+    }
+
+    .emoji-btn {
+      background: rgba(255, 50, 50, 0.1);
+      border: 2px solid var(--rojo);
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.2rem;
+      transition: 0.3s;
+    }
+
+    .emoji-btn:hover {
+      background: rgba(255, 50, 50, 0.3);
+      transform: scale(1.1);
+    }
+
+    /* Alerta de moderación */
+    .moderation-warning {
+      display: none;
+      background: rgba(255, 100, 0, 0.2);
+      border: 2px solid orange;
+      border-radius: 12px;
+      padding: 15px;
+      margin-bottom: 20px;
+      animation: shake 0.5s;
+    }
+
+    .moderation-warning.show {
+      display: block;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .moderation-warning i {
+      color: orange;
+      font-size: 1.2rem;
+      margin-right: 8px;
+    }
+
+    /* Modal de vista previa */
+    .preview-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .preview-content {
+      background: var(--panel);
+      border-radius: 25px;
+      padding: 40px;
+      max-width: 700px;
+      width: 90%;
+      border: 2px solid var(--rojo);
+      box-shadow: 0 20px 60px rgba(255, 0, 0, 0.5);
+      animation: popUp 0.4s ease;
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid var(--rojo);
+    }
+
+    .preview-header h3 {
+      background: linear-gradient(135deg, var(--rojo), var(--rojo-suave));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      font-size: 1.8rem;
+    }
+
+    .close-preview {
+      background: transparent;
+      border: none;
+      color: var(--texto);
+      font-size: 2rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .close-preview:hover {
+      color: var(--rojo);
+      transform: rotate(90deg);
+    }
+
+    .preview-body {
+      margin: 20px 0;
+    }
+
+    .preview-field {
+      margin-bottom: 15px;
+      padding: 12px;
+      background: rgba(255, 50, 50, 0.05);
+      border-radius: 10px;
+    }
+
+    .preview-field strong {
+      color: var(--rojo-suave);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .preview-actions {
+      display: flex;
+      gap: 15px;
+      margin-top: 25px;
+    }
+
+    .preview-actions button {
+      flex: 1;
+    }
+
+    .btn-cancel {
+      background: rgba(100, 100, 100, 0.3);
+      border: 2px solid #666;
+    }
+
+    .btn-cancel:hover {
+      background: rgba(150, 150, 150, 0.4);
     }
 
     input[type="file"] {
@@ -226,6 +392,18 @@
       background: rgba(255, 50, 50, 0.2);
       border-color: var(--rojo-suave);
       transform: translateY(-2px);
+    }
+
+    .file-preview {
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(255, 50, 50, 0.05);
+      border-radius: 8px;
+      display: none;
+    }
+
+    .file-preview.show {
+      display: block;
     }
 
     button[type="submit"] {
@@ -329,35 +507,11 @@
       box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4);
     }
 
-    .footer-links {
-      margin-top: 15px;
-      color: #aaa;
-      font-size: 0.9rem;
-    }
-
-    .footer-links a {
-      color: var(--rojo);
-      text-decoration: none;
-      margin: 0 8px;
-      transition: 0.3s;
-    }
-
-    .footer-links a:hover {
-      color: var(--rojo-suave);
-      text-decoration: underline;
-    }
-
     @media (max-width: 768px) {
-      .container {
-        padding: 30px 20px;
-        margin: 30px 20px;
-      }
-      header {
-        padding: 15px 20px;
-      }
-      h2 {
-        font-size: 2rem;
-      }
+      .container { padding: 30px 20px; margin: 30px 20px; }
+      header { padding: 15px 20px; }
+      h2 { font-size: 2rem; }
+      .preview-content { padding: 25px; }
     }
   </style>
 </head>
@@ -384,10 +538,16 @@
   <div class="container">
     <h2><i class="bi bi-envelope-heart"></i> Enviar un Mensaje</h2>
 
+    <!-- Alerta de moderación -->
+    <div id="moderationWarning" class="moderation-warning">
+      <i class="bi bi-exclamation-triangle-fill"></i>
+      <strong>Advertencia:</strong> Tu mensaje contiene palabras inapropiadas. Por favor, revisa el contenido antes de enviar.
+    </div>
+
     <form id="contactForm">
       <div class="form-group">
         <label for="alias"><i class="bi bi-incognito"></i> Tu alias (opcional)</label>
-        <input type="text" id="alias" name="alias" placeholder="Ej: Sombra Nocturna">
+        <input type="text" id="alias" name="alias" placeholder="Ej: Sombra Nocturna" maxlength="50">
       </div>
 
       <div class="form-group">
@@ -397,27 +557,83 @@
 
       <div class="form-group">
         <label for="subject"><i class="bi bi-tag"></i> Asunto *</label>
-        <input type="text" id="subject" name="subject" placeholder="Tema del mensaje" required>
+        <input type="text" id="subject" name="subject" placeholder="Tema del mensaje" required maxlength="100">
       </div>
 
       <div class="form-group">
-        <label for="message"><i class="bi bi-chat-left-text"></i> Tu mensaje *</label>
-        <textarea id="message" name="message" placeholder="Escribe aquí tu mensaje anónimo..." rows="6" required></textarea>
+        <label for="message"><i class="bi bi-chat-left-text"></i> Tu mensaje * (máx. 1000 caracteres)</label>
+        <textarea id="message" name="message" placeholder="Escribe aquí tu mensaje anónimo..." rows="6" required maxlength="1000"></textarea>
+        <div id="charCounter" class="char-counter">0 / 1000 caracteres</div>
+        
+        <!-- Selector de emojis -->
+        <div class="emoji-picker">
+          <button type="button" class="emoji-btn" onclick="addEmoji('❤️')">❤️</button>
+          <button type="button" class="emoji-btn" onclick="addEmoji('😊')">😊</button>
+          <button type="button" class="emoji-btn" onclick="addEmoji('🌹')">🌹</button>
+          <button type="button" class="emoji-btn" onclick="addEmoji('✨')">✨</button>
+          <button type="button" class="emoji-btn" onclick="addEmoji('💫')">💫</button>
+          <button type="button" class="emoji-btn" onclick="addEmoji('🌙')">🌙</button>
+          <button type="button" class="emoji-btn" onclick="addEmoji('🔥')">🔥</button>
+          <button type="button" class="emoji-btn" onclick="addEmoji('💭')">💭</button>
+        </div>
       </div>
 
       <div class="form-group">
         <label class="file-label" for="file">
           <i class="bi bi-paperclip"></i> Adjuntar archivo (opcional)
         </label>
-        <input type="file" id="file" name="file" accept="image/*,video/*,.pdf,.doc,.docx">
+        <input type="file" id="file" name="file" accept="image/*,video/*,.pdf,.doc,.docx" onchange="previewFile()">
+        <div id="filePreview" class="file-preview"></div>
       </div>
 
       <button type="submit">
-        <i class="bi bi-send"></i> Guardar Mensaje
+        <i class="bi bi-eye"></i> Vista Previa
       </button>
     </form>
 
     <div id="alertBox" class="alert"></div>
+  </div>
+
+  <!-- Modal de Vista Previa -->
+  <div id="previewModal" class="preview-modal">
+    <div class="preview-content">
+      <div class="preview-header">
+        <h3><i class="bi bi-eye-fill"></i> Vista Previa del Mensaje</h3>
+        <button class="close-preview" onclick="closePreview()">&times;</button>
+      </div>
+      
+      <div class="preview-body">
+        <div class="preview-field">
+          <strong><i class="bi bi-person-circle"></i> De:</strong>
+          <span id="previewAlias"></span>
+        </div>
+        <div class="preview-field">
+          <strong><i class="bi bi-envelope"></i> Para:</strong>
+          <span id="previewEmail"></span>
+        </div>
+        <div class="preview-field">
+          <strong><i class="bi bi-tag"></i> Asunto:</strong>
+          <span id="previewSubject"></span>
+        </div>
+        <div class="preview-field">
+          <strong><i class="bi bi-chat-left-text"></i> Mensaje:</strong>
+          <p id="previewMessage" style="margin-top: 10px; line-height: 1.6;"></p>
+        </div>
+        <div id="previewFileSection" class="preview-field" style="display: none;">
+          <strong><i class="bi bi-paperclip"></i> Archivo adjunto:</strong>
+          <span id="previewFileName"></span>
+        </div>
+      </div>
+
+      <div class="preview-actions">
+        <button class="btn btn-cancel" onclick="closePreview()">
+          <i class="bi bi-x-circle"></i> Cancelar
+        </button>
+        <button class="btn" onclick="confirmSend()">
+          <i class="bi bi-send-fill"></i> Enviar Mensaje
+        </button>
+      </div>
+    </div>
   </div>
 
   <footer>
@@ -429,28 +645,152 @@
       <a href="#"><i class="bi bi-twitter-x"></i></a>
       <a href="#"><i class="bi bi-envelope"></i></a>
     </div>
-    <div class="footer-links">
-      <a href="#">Contacto</a> | 
-      <a href="#">Privacidad</a> | 
-      <a href="#">Soporte</a>
-    </div>
   </footer>
 
   <script>
-    const form = document.getElementById('contactForm');
-    const alertBox = document.getElementById('alertBox');
+    // ========== SISTEMA DE MODERACIÓN ==========
+    const palabrasOfensivas = [
+      'idiota', 'tonto', 'estupido', 'estúpido', 'imbécil', 'imbecil',
+      'matar', 'morir', 'suicidio', 'muerte', 'violencia',
+      'feo', 'gordo', 'flaco', 'enano',
+      'odio', 'odiar',
+      // Agrega más palabras según necesites
+    ];
 
-    // Cargar tema guardado
-    if (localStorage.getItem("theme") === "light") {
-      document.body.classList.add("light");
+    function contienePalabrasOfensivas(texto) {
+      const textoMin = texto.toLowerCase();
+      return palabrasOfensivas.some(palabra => textoMin.includes(palabra));
     }
 
-    form.addEventListener('submit', function(e){
+    function censurarTexto(texto) {
+      let censurado = texto;
+      palabrasOfensivas.forEach(palabra => {
+        const regex = new RegExp(palabra, 'gi');
+        censurado = censurado.replace(regex, '*'.repeat(palabra.length));
+      });
+      return censurado;
+    }
+
+    // ========== ELEMENTOS DEL DOM ==========
+    const form = document.getElementById('contactForm');
+    const messageInput = document.getElementById('message');
+    const charCounter = document.getElementById('charCounter');
+    const moderationWarning = document.getElementById('moderationWarning');
+    const previewModal = document.getElementById('previewModal');
+    const alertBox = document.getElementById('alertBox');
+    const fileInput = document.getElementById('file');
+    let currentFileData = null;
+
+    // ========== CONTADOR DE CARACTERES ==========
+    messageInput.addEventListener('input', function() {
+      const length = this.value.length;
+      const maxLength = 1000;
+      charCounter.textContent = `${length} / ${maxLength} caracteres`;
+      
+      if (length > maxLength * 0.9) {
+        charCounter.classList.add('danger');
+        charCounter.classList.remove('warning');
+      } else if (length > maxLength * 0.7) {
+        charCounter.classList.add('warning');
+        charCounter.classList.remove('danger');
+      } else {
+        charCounter.classList.remove('warning', 'danger');
+      }
+
+      // Verificar moderación en tiempo real
+      if (contienePalabrasOfensivas(this.value)) {
+        moderationWarning.classList.add('show');
+      } else {
+        moderationWarning.classList.remove('show');
+      }
+    });
+
+    // ========== AGREGAR EMOJIS ==========
+    function addEmoji(emoji) {
+      const cursorPos = messageInput.selectionStart;
+      const textBefore = messageInput.value.substring(0, cursorPos);
+      const textAfter = messageInput.value.substring(cursorPos);
+      messageInput.value = textBefore + emoji + textAfter;
+      messageInput.focus();
+      messageInput.setSelectionRange(cursorPos + emoji.length, cursorPos + emoji.length);
+      messageInput.dispatchEvent(new Event('input'));
+    }
+
+    // ========== PREVIEW DE ARCHIVO ==========
+    function previewFile() {
+      const file = fileInput.files[0];
+      const preview = document.getElementById('filePreview');
+      
+      if (file) {
+        if (file.size > 10000000) { // 10MB máximo
+          showAlert('❌ El archivo es muy grande. Máximo 10MB.', 'error');
+          fileInput.value = '';
+          return;
+        }
+        
+        preview.classList.add('show');
+        preview.innerHTML = `<i class="bi bi-paperclip"></i> ${file.name} (${(file.size / 1024).toFixed(2)} KB)`;
+        
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          currentFileData = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        preview.classList.remove('show');
+        currentFileData = null;
+      }
+    }
+
+    // ========== MOSTRAR VISTA PREVIA ==========
+    form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      const fileInput = document.getElementById('file');
-      const file = fileInput.files[0];
+      const alias = form.alias.value || "Anónimo";
+      const email = form.email.value;
+      const subject = form.subject.value;
+      const message = form.message.value;
 
+      // Validaciones
+      if (!email || !subject || !message) {
+        showAlert('❌ Por favor completa todos los campos obligatorios', 'error');
+        return;
+      }
+
+      if (message.length < 10) {
+        showAlert('❌ El mensaje debe tener al menos 10 caracteres', 'error');
+        return;
+      }
+
+      // Censurar palabras ofensivas en la vista previa
+      const messageCensurado = censurarTexto(message);
+
+      // Llenar vista previa
+      document.getElementById('previewAlias').textContent = alias;
+      document.getElementById('previewEmail').textContent = email;
+      document.getElementById('previewSubject').textContent = subject;
+      document.getElementById('previewMessage').textContent = messageCensurado;
+
+      // Mostrar archivo si existe
+      const file = fileInput.files[0];
+      if (file) {
+        document.getElementById('previewFileSection').style.display = 'block';
+        document.getElementById('previewFileName').textContent = file.name;
+      } else {
+        document.getElementById('previewFileSection').style.display = 'none';
+      }
+
+      // Mostrar modal
+      previewModal.style.display = 'flex';
+    });
+
+    // ========== CERRAR VISTA PREVIA ==========
+    function closePreview() {
+      previewModal.style.display = 'none';
+    }
+
+    // ========== CONFIRMAR Y ENVIAR ==========
+    function confirmSend() {
       const newMessage = {
         id: Date.now(),
         alias: form.alias.value || "Anónimo",
@@ -463,54 +803,64 @@
           day: 'numeric',
           hour: '2-digit',
           minute: '2-digit'
-        })
+        }),
+        file: currentFileData,
+        reactions: { like: 0, smile: 0, love: 0, support: 0 },
+        read: false,
+        favorite: false
       };
 
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function() {
-          newMessage.file = reader.result;
-          saveToLocalStorage(newMessage);
-        };
-        reader.readAsDataURL(file);
-      } else {
-        saveToLocalStorage(newMessage);
-      }
-    });
-
-    function saveToLocalStorage(data){
       try {
         const existing = JSON.parse(localStorage.getItem("mensajes_secret_talk")) || [];
-        existing.push(data);
+        existing.push(newMessage);
         localStorage.setItem("mensajes_secret_talk", JSON.stringify(existing));
-        showAlert("✅ Mensaje guardado exitosamente", "success");
+        
+        closePreview();
+        showAlert('✅ Mensaje enviado exitosamente', 'success');
         form.reset();
+        currentFileData = null;
+        document.getElementById('filePreview').classList.remove('show');
+        charCounter.textContent = '0 / 1000 caracteres';
+        moderationWarning.classList.remove('show');
         
         setTimeout(() => {
           window.location.href = "conversaciones.html";
         }, 2000);
       } catch (err) {
         console.error(err);
-        showAlert("❌ Error al guardar el mensaje", "error");
+        showAlert('❌ Error al enviar el mensaje', 'error');
       }
     }
 
-    function showAlert(msg, type){
+    // ========== FUNCIONES AUXILIARES ==========
+    function showAlert(msg, type) {
       alertBox.innerHTML = `<i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${msg}`;
       alertBox.className = "alert " + type;
       alertBox.style.display = "block";
-      setTimeout(()=>alertBox.style.display="none",4000);
+      setTimeout(() => alertBox.style.display = "none", 4000);
     }
 
-    function toggleFullScreen(){
+    function toggleFullScreen() {
       if (!document.fullscreenElement) document.documentElement.requestFullscreen();
       else if (document.exitFullscreen) document.exitFullscreen();
     }
 
-    function toggleTheme(){
+    function toggleTheme() {
       document.body.classList.toggle('light');
       localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
     }
+
+    // Cargar tema guardado
+    if (localStorage.getItem("theme") === "light") {
+      document.body.classList.add("light");
+    }
+
+    // Cerrar modal al hacer clic fuera
+    window.onclick = function(e) {
+      if (e.target === previewModal) {
+        closePreview();
+      }
+    };
   </script>
 </body>
 </html>
