@@ -21,7 +21,6 @@
       position: relative;
     }
 
-    /* Partículas animadas */
     .glow {
       position: absolute;
       width: 250px;
@@ -40,7 +39,6 @@
       to { transform: scale(1.3) translateY(-20px); opacity: 0.7; }
     }
 
-    /* Header mejorado */
     header {
       width: 100%;
       background: rgba(10, 0, 0, 0.95);
@@ -85,7 +83,6 @@
       background: rgba(255, 50, 50, 0.1);
     }
 
-    /* Contenedor principal */
     main {
       flex: 1;
       display: flex;
@@ -95,7 +92,6 @@
       padding: 40px 20px;
     }
 
-    /* Sección de bienvenida */
     .intro {
       text-align: center;
       max-width: 700px;
@@ -124,7 +120,6 @@
       line-height: 1.7;
     }
 
-    /* Contenedor de login */
     .login-container {
       background: rgba(15, 0, 0, 0.9);
       border: 2px solid rgba(255, 50, 50, 0.3);
@@ -265,7 +260,6 @@
       text-decoration: underline;
     }
 
-    /* Alerta personalizada */
     .alert-box {
       position: fixed;
       top: 50%;
@@ -310,7 +304,6 @@
       width: auto;
     }
 
-    /* Modal contacto */
     .modal {
       position: fixed;
       top: 0; left: 0;
@@ -389,7 +382,6 @@
       padding: 12px 30px;
     }
 
-    /* Footer */
     footer {
       margin-top: auto;
       width: 100%;
@@ -542,7 +534,7 @@
       document.getElementById("alertBox").classList.remove("active");
     }
 
-    // Validación e inicio de sesión
+    // LOGIN CON SISTEMA MULTI-USUARIO
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -554,11 +546,15 @@
         return;
       }
 
-      // Verificar si existe el usuario en localStorage
-      const storedUser = JSON.parse(localStorage.getItem("usuario_secret_talk"));
+      // NUEVO: Buscar en todos los usuarios registrados
+      const todosUsuarios = JSON.parse(localStorage.getItem("todos_usuarios_secret_talk")) || [];
+      const usuarioEncontrado = todosUsuarios.find(u => u.correo === email && u.contraseña === password);
 
-      if (storedUser && storedUser.correo === email && storedUser.contraseña === password) {
+      if (usuarioEncontrado) {
+        // Guardar como usuario actual
+        localStorage.setItem("usuario_secret_talk", JSON.stringify(usuarioEncontrado));
         localStorage.setItem("user_logged_in", "true");
+        
         showAlert("✅ Bienvenido", "Inicio de sesión exitoso. Redirigiendo...");
         setTimeout(() => {
           window.location.href = "principal.html";
@@ -576,7 +572,6 @@
       document.getElementById("contactModal").style.display = "none";
     }
 
-    // Cerrar modal al hacer clic fuera
     window.onclick = function(e) {
       const modal = document.getElementById("contactModal");
       if (e.target === modal) {

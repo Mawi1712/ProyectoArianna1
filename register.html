@@ -40,7 +40,6 @@
       to { transform: scale(1.4) translateY(-30px) translateX(30px); opacity: 0.8; }
     }
 
-    /* Header mejorado */
     header {
       background: rgba(10, 0, 0, 0.95);
       border-bottom: 2px solid rgba(255, 50, 50, 0.3);
@@ -88,7 +87,6 @@
       box-shadow: 0 5px 20px rgba(255, 0, 0, 0.4);
     }
 
-    /* Formulario mejorado */
     .register-container {
       background: rgba(15, 0, 0, 0.9);
       border: 2px solid rgba(255, 50, 50, 0.3);
@@ -225,7 +223,6 @@
       text-decoration: underline;
     }
 
-    /* Alerta personalizada mejorada */
     .alert-box {
       position: fixed;
       top: 50%;
@@ -283,7 +280,6 @@
       box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
     }
 
-    /* Modal contacto mejorado */
     .modal {
       position: fixed;
       top: 0; left: 0;
@@ -345,7 +341,6 @@
       box-shadow: 0 5px 20px rgba(255, 0, 0, 0.5);
     }
 
-    /* Footer mejorado */
     footer {
       background: rgba(5, 0, 0, 0.95);
       border-top: 2px solid rgba(255, 50, 50, 0.3);
@@ -402,7 +397,6 @@
       text-decoration: underline;
     }
 
-    /* Indicador de fuerza de contraseña */
     .password-strength {
       margin-top: 5px;
       height: 4px;
@@ -422,7 +416,6 @@
     .password-strength-bar.medium { width: 66%; background: #ffa500; }
     .password-strength-bar.strong { width: 100%; background: #00ff00; }
 
-    /* Responsive */
     @media (max-width: 576px) {
       .register-container {
         padding: 30px 25px;
@@ -568,7 +561,6 @@
       }
     });
 
-    // Alerta personalizada
     function showAlert(title, message) {
       const alertBox = document.getElementById("alertBox");
       document.getElementById("alertTitle").innerText = title;
@@ -580,7 +572,7 @@
       document.getElementById("alertBox").classList.remove("active");
     }
 
-    // Registro con validación y guardado en localStorage
+    // REGISTRO CON SISTEMA MULTI-USUARIO
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
@@ -612,7 +604,16 @@
         return;
       }
 
-      // Guardar usuario en localStorage
+      // NUEVO: Verificar si el correo ya existe
+      const todosUsuarios = JSON.parse(localStorage.getItem("todos_usuarios_secret_talk")) || [];
+      const correoExiste = todosUsuarios.some(u => u.correo === email);
+      
+      if (correoExiste) {
+        showAlert("⚠️ Correo ya registrado", "Este correo ya está en uso. Intenta con otro o inicia sesión.");
+        return;
+      }
+
+      // Crear nuevo usuario
       const userData = {
         nombre: name,
         correo: email,
@@ -623,6 +624,11 @@
         foto: "https://cdn-icons-png.flaticon.com/512/1077/1077114.png"
       };
 
+      // NUEVO: Guardar en lista de todos los usuarios
+      todosUsuarios.push(userData);
+      localStorage.setItem("todos_usuarios_secret_talk", JSON.stringify(todosUsuarios));
+      
+      // Guardar como usuario actual
       localStorage.setItem("usuario_secret_talk", JSON.stringify(userData));
       localStorage.setItem("user_logged_in", "true");
 
@@ -633,7 +639,6 @@
       }, 2000);
     });
 
-    // Pantalla completa
     function toggleFullScreen() {
       if (!document.fullscreenElement) {
         document.documentElement.requestFullscreen();
@@ -642,7 +647,6 @@
       }
     }
 
-    // Modal de contacto
     function openContact() {
       document.getElementById("contactModal").style.display = "flex";
     }
@@ -651,7 +655,6 @@
       document.getElementById("contactModal").style.display = "none";
     }
 
-    // Cerrar modal al hacer clic fuera
     window.onclick = function(e) {
       const modal = document.getElementById("contactModal");
       if (e.target === modal) {
@@ -659,7 +662,6 @@
       }
     };
 
-    // Traducción básica
     let isSpanish = true;
     function toggleLanguage() {
       isSpanish = !isSpanish;

@@ -176,7 +176,7 @@
       font-size: 0.95rem;
     }
 
-    input, textarea {
+    input, textarea, select {
       width: 100%;
       padding: 15px 20px;
       border-radius: 12px;
@@ -188,11 +188,15 @@
       font-family: 'Poppins', sans-serif;
     }
 
-    body.light input, body.light textarea {
+    body.light input, body.light textarea, body.light select {
       background: rgba(255, 255, 255, 0.8);
     }
 
-    input:focus, textarea:focus {
+    select {
+      cursor: pointer;
+    }
+
+    input:focus, textarea:focus, select:focus {
       border-color: var(--rojo-suave);
       outline: none;
       box-shadow: 0 0 20px rgba(255, 50, 50, 0.3);
@@ -219,7 +223,6 @@
       color: red;
     }
 
-    /* Selector de emojis */
     .emoji-picker {
       display: flex;
       gap: 8px;
@@ -245,7 +248,6 @@
       transform: scale(1.1);
     }
 
-    /* Alerta de moderación */
     .moderation-warning {
       display: none;
       background: rgba(255, 100, 0, 0.2);
@@ -272,7 +274,6 @@
       margin-right: 8px;
     }
 
-    /* Modal de vista previa */
     .preview-modal {
       display: none;
       position: fixed;
@@ -538,7 +539,6 @@
   <div class="container">
     <h2><i class="bi bi-envelope-heart"></i> Enviar un Mensaje</h2>
 
-    <!-- Alerta de moderación -->
     <div id="moderationWarning" class="moderation-warning">
       <i class="bi bi-exclamation-triangle-fill"></i>
       <strong>Advertencia:</strong> Tu mensaje contiene palabras inapropiadas. Por favor, revisa el contenido antes de enviar.
@@ -551,8 +551,10 @@
       </div>
 
       <div class="form-group">
-        <label for="email"><i class="bi bi-envelope"></i> Correo del destinatario *</label>
-        <input type="email" id="email" name="email" placeholder="destinatario@email.com" required>
+        <label for="destinatario"><i class="bi bi-people"></i> Selecciona un destinatario *</label>
+        <select id="destinatario" name="destinatario" required>
+          <option value="">Cargando usuarios...</option>
+        </select>
       </div>
 
       <div class="form-group">
@@ -565,7 +567,6 @@
         <textarea id="message" name="message" placeholder="Escribe aquí tu mensaje anónimo..." rows="6" required maxlength="1000"></textarea>
         <div id="charCounter" class="char-counter">0 / 1000 caracteres</div>
         
-        <!-- Selector de emojis -->
         <div class="emoji-picker">
           <button type="button" class="emoji-btn" onclick="addEmoji('❤️')">❤️</button>
           <button type="button" class="emoji-btn" onclick="addEmoji('😊')">😊</button>
@@ -594,7 +595,6 @@
     <div id="alertBox" class="alert"></div>
   </div>
 
-  <!-- Modal de Vista Previa -->
   <div id="previewModal" class="preview-modal">
     <div class="preview-content">
       <div class="preview-header">
@@ -648,13 +648,11 @@
   </footer>
 
   <script>
-    // ========== SISTEMA DE MODERACIÓN ==========
     const palabrasOfensivas = [
       'idiota', 'tonto', 'estupido', 'estúpido', 'imbécil', 'imbecil',
       'matar', 'morir', 'suicidio', 'muerte', 'violencia',
       'feo', 'gordo', 'flaco', 'enano',
       'odio', 'odiar',
-      // Agrega más palabras según necesites
     ];
 
     function contienePalabrasOfensivas(texto) {
@@ -671,7 +669,6 @@
       return censurado;
     }
 
-    // ========== ELEMENTOS DEL DOM ==========
     const form = document.getElementById('contactForm');
     const messageInput = document.getElementById('message');
     const charCounter = document.getElementById('charCounter');
@@ -681,7 +678,6 @@
     const fileInput = document.getElementById('file');
     let currentFileData = null;
 
-    // ========== CONTADOR DE CARACTERES ==========
     messageInput.addEventListener('input', function() {
       const length = this.value.length;
       const maxLength = 1000;
@@ -697,7 +693,6 @@
         charCounter.classList.remove('warning', 'danger');
       }
 
-      // Verificar moderación en tiempo real
       if (contienePalabrasOfensivas(this.value)) {
         moderationWarning.classList.add('show');
       } else {
@@ -705,7 +700,6 @@
       }
     });
 
-    // ========== AGREGAR EMOJIS ==========
     function addEmoji(emoji) {
       const cursorPos = messageInput.selectionStart;
       const textBefore = messageInput.value.substring(0, cursorPos);
@@ -716,13 +710,12 @@
       messageInput.dispatchEvent(new Event('input'));
     }
 
-    // ========== PREVIEW DE ARCHIVO ==========
     function previewFile() {
       const file = fileInput.files[0];
       const preview = document.getElementById('filePreview');
       
       if (file) {
-        if (file.size > 10000000) { // 10MB máximo
+        if (file.size > 10000000) {
           showAlert('❌ El archivo es muy grande. Máximo 10MB.', 'error');
           fileInput.value = '';
           return;
@@ -742,17 +735,48 @@
       }
     }
 
-    // ========== MOSTRAR VISTA PREVIA ==========
+    document.addEventListener('DOMContentLoaded', function() {
+      const usuarioActual = JSON.parse(localStorage.getItem("usuario_secret_talk"));
+      const todosUsuarios = JSON.parse(localStorage.getItem("todos_usuarios_secret_talk")) || [];
+      const selectDestinatario = document.getElementById('destinatario');
+      
+      if (!usuarioActual) {
+        window.location.href = "login.html";
+        return;
+      }
+      
+      const otrosUsuarios = todosUsuarios.filter(u => u.correo !== usuarioActual.correo);
+      
+      selectDestinatario.innerHTML = '';
+      
+      if (otrosUsuarios.length === 0) {
+        selectDestinatario.innerHTML = '<option value="">No hay otros usuarios registrados</option>';
+        showAlert('⚠️ Sin destinatarios disponibles. Necesitas que al menos otro usuario esté registrado para enviar mensajes.', 'error');
+      } else {
+        selectDestinatario.innerHTML = '<option value="">Selecciona un usuario...</option>';
+        otrosUsuarios.forEach(usuario => {
+          const option = document.createElement('option');
+          option.value = usuario.correo;
+          option.textContent = `${usuario.nombre} (${usuario.correo})`;
+          selectDestinatario.appendChild(option);
+        });
+      }
+    });
+
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
       const alias = form.alias.value || "Anónimo";
-      const email = form.email.value;
+      const destinatarioEmail = document.getElementById('destinatario').value;
       const subject = form.subject.value;
       const message = form.message.value;
 
-      // Validaciones
-      if (!email || !subject || !message) {
+      if (!destinatarioEmail) {
+        showAlert('❌ Por favor selecciona un destinatario', 'error');
+        return;
+      }
+
+      if (!subject || !message) {
         showAlert('❌ Por favor completa todos los campos obligatorios', 'error');
         return;
       }
@@ -762,16 +786,13 @@
         return;
       }
 
-      // Censurar palabras ofensivas en la vista previa
       const messageCensurado = censurarTexto(message);
 
-      // Llenar vista previa
       document.getElementById('previewAlias').textContent = alias;
-      document.getElementById('previewEmail').textContent = email;
+      document.getElementById('previewEmail').textContent = destinatarioEmail;
       document.getElementById('previewSubject').textContent = subject;
       document.getElementById('previewMessage').textContent = messageCensurado;
 
-      // Mostrar archivo si existe
       const file = fileInput.files[0];
       if (file) {
         document.getElementById('previewFileSection').style.display = 'block';
@@ -780,21 +801,27 @@
         document.getElementById('previewFileSection').style.display = 'none';
       }
 
-      // Mostrar modal
       previewModal.style.display = 'flex';
     });
 
-    // ========== CERRAR VISTA PREVIA ==========
     function closePreview() {
       previewModal.style.display = 'none';
     }
 
-    // ========== CONFIRMAR Y ENVIAR ==========
     function confirmSend() {
+      const usuarioActual = JSON.parse(localStorage.getItem("usuario_secret_talk"));
+      const destinatarioEmail = document.getElementById('destinatario').value;
+      
+      if (!destinatarioEmail) {
+        showAlert('❌ Selecciona un destinatario', 'error');
+        return;
+      }
+
       const newMessage = {
         id: Date.now(),
         alias: form.alias.value || "Anónimo",
-        email: form.email.value,
+        remitente: usuarioActual.correo, // NUEVO: Guardamos quien envía
+        destinatario: destinatarioEmail, // NUEVO: Guardamos quien recibe
         subject: form.subject.value,
         message: form.message.value,
         date: new Date().toLocaleString('es-ES', {
@@ -823,6 +850,19 @@
         charCounter.textContent = '0 / 1000 caracteres';
         moderationWarning.classList.remove('show');
         
+        const usuarioActual = JSON.parse(localStorage.getItem("usuario_secret_talk"));
+        const todosUsuarios = JSON.parse(localStorage.getItem("todos_usuarios_secret_talk")) || [];
+        const selectDestinatario = document.getElementById('destinatario');
+        const otrosUsuarios = todosUsuarios.filter(u => u.correo !== usuarioActual.correo);
+        
+        selectDestinatario.innerHTML = '<option value="">Selecciona un usuario...</option>';
+        otrosUsuarios.forEach(usuario => {
+          const option = document.createElement('option');
+          option.value = usuario.correo;
+          option.textContent = `${usuario.nombre} (${usuario.correo})`;
+          selectDestinatario.appendChild(option);
+        });
+        
         setTimeout(() => {
           window.location.href = "conversaciones.html";
         }, 2000);
@@ -832,7 +872,6 @@
       }
     }
 
-    // ========== FUNCIONES AUXILIARES ==========
     function showAlert(msg, type) {
       alertBox.innerHTML = `<i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i> ${msg}`;
       alertBox.className = "alert " + type;
@@ -850,12 +889,10 @@
       localStorage.setItem("theme", document.body.classList.contains("light") ? "light" : "dark");
     }
 
-    // Cargar tema guardado
     if (localStorage.getItem("theme") === "light") {
       document.body.classList.add("light");
     }
 
-    // Cerrar modal al hacer clic fuera
     window.onclick = function(e) {
       if (e.target === previewModal) {
         closePreview();
